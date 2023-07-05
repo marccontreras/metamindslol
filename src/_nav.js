@@ -264,6 +264,12 @@ const _nav = [
     },
   },
   {
+    component: CNavItem,
+    name: 'Champions',
+    to: '/champions',
+    icon: <CIcon icon={cilChartPie} customClassName="nav-icon" />,
+  },
+  {
     component: CNavTitle,
     name: 'Extras',
   },
