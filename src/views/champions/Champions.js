@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { CListGroup, CListGroupItem } from '@coreui/react'
+import { Link, Route, Routes } from 'react-router-dom'
+import Champion from './Champion'
 
-const ListComponent = () => {
+const Champions = () => {
   const [listItems, setListItems] = useState([])
 
   useEffect(() => {
@@ -32,7 +34,13 @@ function extracted(listEightChampions) {
           const imagePath = `/assets/images/champions/${item.image}`
           return (
             <CListGroupItem key={item.name}>
-              {item.name} - <img src={process.env.PUBLIC_URL + imagePath} alt={item.image} />
+              {/*<Routes>
+                <Route path="/champion" element={<Champion state={{ itemName: item.name }} />} />*/}
+              <Link to={`/champion`} state={{ itemName: item.name }}>
+                {item.name} - <img src={process.env.PUBLIC_URL + imagePath} alt={item.image} />
+              </Link>
+              {/*                {item.name} - <img src={process.env.PUBLIC_URL + imagePath} alt={item.image} />
+              </Routes>*/}
             </CListGroupItem>
           )
         })}
@@ -41,4 +49,4 @@ function extracted(listEightChampions) {
   )
 }
 
-export default ListComponent
+export default Champions
