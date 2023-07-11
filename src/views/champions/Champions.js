@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { CListGroup, CListGroupItem } from '@coreui/react'
-import { Link, Route, Routes } from 'react-router-dom'
-import Champion from './Champion'
+import { Link } from 'react-router-dom'
 
 const Champions = () => {
   const [listItems, setListItems] = useState([])
@@ -21,23 +20,28 @@ const Champions = () => {
   let content = []
   for (let i = 0; i < listItems.length; i + 8) {
     let listEightChampions = listItems.splice(i, i + 8)
-    content.push(extracted(listEightChampions))
+    content.push(extracted(listEightChampions, i))
   }
   return content
 }
 
-function extracted(listEightChampions) {
+function extracted(listEightChampions, iteration) {
   return (
     <>
-      <CListGroup layout="horizontal">
+      <CListGroup layout="horizontal" key={iteration}>
         {listEightChampions.map((item, index) => {
           const imagePath = `/assets/images/champions/${item.image}`
           return (
             <CListGroupItem key={item.name}>
               {/*<Routes>
                 <Route path="/champion" element={<Champion state={{ itemName: item.name }} />} />*/}
-              <Link to={`/champion`} state={{ itemName: item.name }}>
-                {item.name} - <img src={process.env.PUBLIC_URL + imagePath} alt={item.image} />
+              <Link
+                to={`/champion/?champ=${item.name}`}
+                state={{ itemName: item.name }}
+                key={`link${item.name}`}
+              >
+                {item.name} -{' '}
+                <img key={item.name} src={process.env.PUBLIC_URL + imagePath} alt={item.image} />
               </Link>
               {/*                {item.name} - <img src={process.env.PUBLIC_URL + imagePath} alt={item.image} />
               </Routes>*/}
