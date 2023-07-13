@@ -270,6 +270,12 @@ const _nav = [
     icon: <CIcon icon={cilChartPie} customClassName="nav-icon" />,
   },
   {
+    component: CNavItem,
+    name: 'Summoner',
+    to: '/summoner',
+    icon: <CIcon icon={cilCalculator} customClassName="nav-icon" />,
+  },
+  {
     component: CNavTitle,
     name: 'Extras',
   },

@@ -25,14 +25,19 @@ const Champion = () => {
       <img src={'/assets/images/champions/' + champion.key + '.png'} alt={itemName} />
       {itemName && <p>Item Name: {itemName}</p>}
 
-      {<p>{champion.passive.name}</p>}
-      {
-        <img
-          key={champion.passive.image.full}
-          src={'/assets/images/passive/' + champion.passive.image.full}
-          alt={champion.passive.image.full}
-        />
-      }
+      {champion.passive ? (
+        <div>
+          <p>{champion.passive.name}</p>
+          <img
+            key={champion.passive.image.full}
+            src={'/assets/images/passive/' + champion.passive.image.full}
+            alt={champion.passive.image.full}
+          />
+        </div>
+      ) : (
+        ''
+      )}
+
       {champion.spells
         ? champion.spells.map((spell) => (
             <div key={spell.image.full}>
