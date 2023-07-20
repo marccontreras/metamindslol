@@ -33,8 +33,6 @@ function extracted(listEightChampions, iteration) {
           const imagePath = `/assets/images/champions/${item.image}`
           return (
             <CListGroupItem key={item.name}>
-              {/*<Routes>
-                <Route path="/champion" element={<Champion state={{ itemName: item.name }} />} />*/}
               <Link
                 to={`/champion/?champ=${item.name}`}
                 state={{ itemName: item.name }}
@@ -43,8 +41,6 @@ function extracted(listEightChampions, iteration) {
                 {item.name} -{' '}
                 <img key={item.name} src={process.env.PUBLIC_URL + imagePath} alt={item.image} />
               </Link>
-              {/*                {item.name} - <img src={process.env.PUBLIC_URL + imagePath} alt={item.image} />
-              </Routes>*/}
             </CListGroupItem>
           )
         })}

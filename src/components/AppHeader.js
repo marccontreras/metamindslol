@@ -17,6 +17,7 @@ import { cilBell, cilEnvelopeOpen, cilList, cilMenu } from '@coreui/icons'
 import { AppBreadcrumb } from './index'
 import { AppHeaderDropdown } from './header/index'
 import { logo } from 'src/assets/brand/logo'
+import AppSearchBar from './AppSearchBar'
 
 const AppHeader = () => {
   const dispatch = useDispatch()
@@ -45,6 +46,11 @@ const AppHeader = () => {
           </CNavItem>
           <CNavItem>
             <CNavLink href="#">Settings</CNavLink>
+          </CNavItem>
+        </CHeaderNav>
+        <CHeaderNav>
+          <CNavItem>
+            <AppSearchBar />
           </CNavItem>
         </CHeaderNav>
         <CHeaderNav>
