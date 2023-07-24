@@ -39,6 +39,9 @@ const Match = ({ match }) => {
       {participants.map((participant) => (
         <div key={participant.id}>
           <p>Participant ID: {participant.id}</p>
+          <p>Participant name: {participant.summonerName}</p>
+          <p>Champion ID: {participant.championId}</p>
+          <p>Champion name: {participant.championName}</p>
           {/* Display other participant attributes */}
         </div>
       ))}

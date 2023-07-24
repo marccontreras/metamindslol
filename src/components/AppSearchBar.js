@@ -1,10 +1,14 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import SummonerDropdown from './header/SummonerDropdown'
+import Dropdown from './header/CustomDropdownToggle.tsx'
+import { CDropdown } from '@coreui/react'
+import { useNavigate } from 'react-router-dom'
 
 const SearchBar = () => {
   const [searchQuery, setSearchQuery] = useState('')
-  const [searchResults, setSearchResults] = useState([])
+  const [searchSummoners, setSearchSummoners] = useState([])
+  const navigate = useNavigate()
 
   const dispatch = useDispatch()
   const summonerShow = useSelector((state) => state.summonerShow)
@@ -17,26 +21,58 @@ const SearchBar = () => {
       .then((response) => response.json())
       .then((data) => {
         if (Array.isArray(data)) {
-          setSearchResults(data)
+          setSearchSummoners(data)
           dispatch({ type: 'set', summonerShow: !summonerShow })
         } else {
-          setSearchResults([])
+          setSearchSummoners([])
         }
       })
       .catch((error) => console.error('Error fetching search results:', error))
   }
-  //treure el <ul> del summonerDropdown fa que funcioni com a una llista a sota,
-  // mirar de passar les dades en el summonerDropdown si es pot i que les llisti a dins seu
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
+    if (event.key === 'Enter' || event.key === 's') {
+      console.log('tecla; ' + event.key)
+      //setVisible((prevVisible) => !prevVisible)
+    }
+    if (event.key === 'Enter' && searchQuery.length > 0) {
+      console.log('HORA DENVIAR ' + searchQuery)
+      fetch(`http://localhost:8080/summoners/EUW/${searchQuery}`)
+        .then((response) => response.json())
+        .then((data) => {
+          navigate(`/summoner/?summonerName=${searchQuery}`, {
+            state: { summonerName: searchQuery, summonerPlatform: data.platform },
+          })
+        })
+        .catch((error) => console.error('Error fetching search results:', error))
+    }
+  }
+
   return (
     <div>
-      <input type="text" placeholder="Search..." value={searchQuery} onChange={handleInputChange} />
-      <SummonerDropdown>
-        <ul>
-          {searchResults.map((result) => (
-            <li key={result.puuid}>{result.name}</li>
-          ))}
-        </ul>
-      </SummonerDropdown>
+      {/* Pass searchSummoners as summoners prop to SummonerDropdown */}
+      <CDropdown variant="nav-item">
+        <Dropdown
+          className="py-0 flex justify-content-between align-items-center"
+          caret={false}
+          trigger="click"
+        >
+          <input
+            type="text"
+            placeholder="Search...                                                   "
+            value={searchQuery}
+            onChange={handleInputChange}
+            onKeyDown={handleKeyDown}
+            className="min-vw-50 w-100"
+          />{' '}
+        </Dropdown>{' '}
+        <SummonerDropdown summoners={searchSummoners} />
+      </CDropdown>
+      {/* <ul>
+        {searchSummoners.map((result) => (
+          <li key={result.puuid}>{result.name}</li>
+        ))}
+      </ul>*/}
     </div>
   )
 }
