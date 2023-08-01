@@ -4,6 +4,7 @@ const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const Champion = React.lazy(() => import('./views/champions/Champion'))
 const Champions = React.lazy(() => import('./views/champions/Champions'))
 const Summoner = React.lazy(() => import('./views/summoner/Summoner'))
+const MatchDetail = React.lazy(() => import('./views/summoner/MatchDetail'))
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
 const Typography = React.lazy(() => import('./views/theme/typography/Typography'))
 
@@ -58,6 +59,7 @@ const routes = [
   { path: '/champion', name: 'Champion', element: Champion },
   { path: '/champions', name: 'Champions', element: Champions },
   { path: '/summoner', name: 'Summoner', element: Summoner },
+  { path: '/matchDetail', name: 'MatchDetail', element: MatchDetail },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
   { path: '/theme', name: 'Theme', element: Colors, exact: true },
   { path: '/theme/colors', name: 'Colors', element: Colors },

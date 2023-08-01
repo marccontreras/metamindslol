@@ -41,7 +41,7 @@ const SearchBar = () => {
         .then((response) => response.json())
         .then((data) => {
           navigate(`/summoner/?summonerName=${searchQuery}`, {
-            state: { summonerName: searchQuery, summonerPlatform: data.platform },
+            state: { summoner: data },
           })
         })
         .catch((error) => console.error('Error fetching search results:', error))

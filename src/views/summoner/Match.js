@@ -1,7 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { CCol, CContainer, CListGroup, CListGroupItem, CRow } from '@coreui/react'
+import ParticipantItem from './ParticipantItem'
+import { Link } from 'react-router-dom'
+import TeamParticipants from './TeamParticipants'
+import MatchSummonerBuild from './MatchSummonerBuild'
+import ParticipantItems from './ParticipantItems'
 
-const Match = ({ match }) => {
+const Match = ({ match, summonerName, summonerWon }) => {
   const {
     gameCreation,
     gameDuration,
@@ -19,41 +25,104 @@ const Match = ({ match }) => {
     teams,
   } = match
 
+  const color = summonerWon ? 'success' : 'danger'
+
+  // Filter participants into two teams
+  const team1Participants = participants
+    .filter((participant) => participant.team === teams[0].teamId)
+    .sort((a, b) => a.participantId - b.participantId)
+
+  const team2Participants = participants
+    .filter((participant) => participant.team === teams[1].teamId)
+    .sort((a, b) => a.participantId - b.participantId)
+
+  // Function to calculate the time elapsed in hours or days
+  const getTimeElapsed = () => {
+    const currentTime = Date.now()
+    const timeDifference = currentTime - gameEndTimestamp
+    const hoursElapsed = Math.floor(timeDifference / (1000 * 60 * 60))
+    const daysElapsed = Math.floor(timeDifference / (1000 * 60 * 60 * 24))
+    return daysElapsed >= 1 ? `${daysElapsed} days ago` : `${hoursElapsed} hours ago`
+  }
+
+  // Function to convert seconds to minutes and seconds format
+  const formatGameDuration = (durationInSeconds) => {
+    const minutes = Math.floor(durationInSeconds / 60)
+    const seconds = durationInSeconds % 60
+    return `${minutes}m ${seconds}s`
+  }
   return (
-    <div>
-      <h2>Match Details</h2>
-      <p>Game ID: {gameId}</p>
-      <p>Game Mode: {gameMode}</p>
-      <p>Game Name: {gameName}</p>
-      <p>Game Type: {gameType}</p>
-      <p>Game Version: {gameVersion}</p>
-      <p>Platform: {platform}</p>
-      <p>Map: {map}</p>
-      <p>Queue: {queue}</p>
-      <p>Game Creation: {gameCreation}</p>
-      <p>Game Duration: {gameDuration}</p>
-      <p>Game Start Timestamp: {gameStartTimestamp}</p>
-      <p>Game End Timestamp: {gameEndTimestamp}</p>
-
-      <h3>Participants</h3>
-      {participants.map((participant) => (
-        <div key={participant.id}>
-          <p>Participant ID: {participant.id}</p>
-          <p>Participant name: {participant.summonerName}</p>
-          <p>Champion ID: {participant.championId}</p>
-          <p>Champion name: {participant.championName}</p>
-          {/* Display other participant attributes */}
-        </div>
-      ))}
-
-      <h3>Teams</h3>
-      {teams.map((team) => (
-        <div key={team.id}>
-          <p>Team ID: {team.id}</p>
-          {/* Display other team attributes */}
-        </div>
-      ))}
-    </div>
+    <CListGroupItem color={color} className="p-1">
+      {participants.map(
+        (participant, index) =>
+          participant.summonerName === summonerName && (
+            <CContainer key={index}>
+              <CRow>
+                <CCol sm="auto">
+                  <Link
+                    state={{ match: match, participant: participant, number: index }}
+                    to={`/matchDetail/?${gameId}#participant${index}`}
+                    key={gameId}
+                    className="text-decoration-none text-black"
+                  >
+                    <CRow className="justify-content-around">
+                      <CRow>
+                        <span style={{ whiteSpace: 'pre' }} className="p-0">
+                          {summonerWon ? 'WIN ' : 'LOSE'}
+                        </span>
+                      </CRow>
+                      <CRow>Game Mode:{queue.replace('TEAM_BUILDER_', '')}</CRow>
+                    </CRow>
+                    <CRow className="justify-content-around">
+                      <CRow>{formatGameDuration(match.gameDuration)}</CRow>
+                      <CRow>{getTimeElapsed()}</CRow>
+                    </CRow>
+                  </Link>
+                </CCol>
+                <MatchSummonerBuild
+                  key={participant}
+                  participant={participant}
+                  gameId={gameId}
+                  index={index}
+                  match={match}
+                />
+                <ParticipantItems
+                  sm="auto"
+                  key={gameId}
+                  gameId={gameId}
+                  index={index}
+                  match={match}
+                  participant={participant}
+                  color={color}
+                />
+                <CCol className="p-0">
+                  <CContainer>
+                    <CRow className="justify-content-start flex-nowrap">
+                      <CCol>
+                        {/* Display Team 1 Participants using TeamParticipants component */}
+                        <TeamParticipants
+                          participants={team1Participants}
+                          gameId={gameId}
+                          imageSize={30}
+                        />
+                      </CCol>
+                      <CCol>
+                        {/* Display Team 2 Participants using TeamParticipants component */}
+                        <TeamParticipants
+                          participants={team2Participants}
+                          gameId={gameId}
+                          imageSize={30}
+                        />
+                      </CCol>
+                    </CRow>
+                  </CContainer>
+                </CCol>{' '}
+                {/* Display other participant attributes */}
+              </CRow>
+            </CContainer>
+          ),
+      )}
+    </CListGroupItem>
   )
 }
 
@@ -74,6 +143,8 @@ Match.propTypes = {
     queue: PropTypes.string.isRequired,
     teams: PropTypes.arrayOf(PropTypes.object).isRequired,
   }).isRequired,
+  summonerName: PropTypes.string.isRequired,
+  summonerWon: PropTypes.bool.isRequired,
 }
 
 export default Match

@@ -12,7 +12,7 @@ const SummonerDropdown = ({ summoners }) => {
             <Link
               className="min-vw-100"
               to={`/summoner/?summonerName=${summoner.name}`}
-              state={{ summonerName: summoner.name, summonerPlatform: summoner.platform }}
+              state={{ summoner: summoner }} // Pass the whole summoner object as the state
               key={`link${summoner.name}`}
             >
               <CContainer>
