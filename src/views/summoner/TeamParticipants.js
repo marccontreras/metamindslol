@@ -2,12 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { useNavigate } from 'react-router-dom'
 
-const TeamParticipants = ({ participants, gameId, imageSize }) => {
+const TeamParticipants = ({ participants, imageSize, participant }) => {
   const navigate = useNavigate()
 
-  const fetchSummoner = (event) => {
+  const fetchSummoner = (selectedParticipant) => {
     // Get the summoner name of the clicked participant
-    const summonerName = participants[event].summonerName
+    const summonerName = selectedParticipant.summonerName
 
     // Make the API call here using the search query
     fetch(`http://localhost:8080/summoners/EUW1/${summonerName}`)
@@ -15,7 +15,7 @@ const TeamParticipants = ({ participants, gameId, imageSize }) => {
       .then((data) => {
         if (data !== 'Summoner not found') {
           // If summoner data is fetched successfully, navigate to the summoner page
-          navigate(`/summoner/?summonerName=${summonerName}`, { state: { summoner: data } }) // Pass the whole summoner object as the state
+          navigate(`/summoner/?summonerName=${summonerName}`, { state: { summoner: data } })
         } else {
           // Handle case when summoner is not found
           console.error('Summoner not found')
@@ -23,46 +23,62 @@ const TeamParticipants = ({ participants, gameId, imageSize }) => {
       })
       .catch((error) => console.error('Error fetching summoner data:', error))
   }
+  function fillStringWithSpaces(toFormat, desiredLength) {
+    let amountToFill = (desiredLength - toFormat.length) / 2
+    let halfFormatted = toFormat.padStart(toFormat.length + amountToFill, ' ')
 
-  const formatSummonerName = (summonerName) => {
-    const desiredLength = 16
-    if (summonerName.length < desiredLength) {
-      let tempSum = summonerName + '1'.repeat(desiredLength - summonerName.length)
-      console.log(tempSum)
-      return tempSum
+    if (desiredLength % 2 !== 0) {
+      halfFormatted = toFormat.padStart(toFormat.length + amountToFill + 1, ' ')
     }
-    return summonerName
+
+    const formattedKda = halfFormatted.padEnd(desiredLength, ' ')
+    console.log(formattedKda + ' length: ' + formattedKda.length)
+    return formattedKda
   }
 
-  return (
-    <>
-      {participants.map((participant, index) => (
-        <div key={index} className="d-flex align-items-center">
-          <img
-            style={{ height: imageSize, width: imageSize }}
-            className="ms-2 p-1"
-            key={participant.championId}
-            src={`/assets/images/champions/${participant.championName}.png`}
-            alt={participant.championId}
-          />
-          <span
-            className="ms-2"
-            style={{ cursor: 'pointer', whiteSpace: 'pre' }} // Add white-space: pre
-            onClick={() => fetchSummoner(index)}
-          >
-            {participant.summonerName}
-          </span>
-          <div className="flex-fill flex-grow-1"></div>
-        </div>
-      ))}
-    </>
-  )
+  if (participants) {
+    return (
+      <>
+        {participants.map((participant, index) => (
+          <div key={index} className="d-flex align-items-center">
+            <img
+              style={{ height: imageSize, width: imageSize }}
+              className="ms-2 p-1"
+              key={participant.championId}
+              src={`/assets/images/champions/${participant.championName}.png`}
+              alt={participant.championId}
+            />
+            <span
+              className="ms-2"
+              style={{ cursor: 'pointer', whiteSpace: 'pre' }}
+              onClick={() => fetchSummoner(participant)}
+            >
+              {fillStringWithSpaces(participant.summonerName, 16)}
+            </span>
+          </div>
+        ))}
+      </>
+    )
+  } else if (participant) {
+    return (
+      <div key={participant.summonerName} className="d-flex align-items-center px-1">
+        <span
+          style={{ cursor: 'pointer', whiteSpace: 'pre' }}
+          onClick={() => fetchSummoner(participant)}
+        >
+          {fillStringWithSpaces(participant.summonerName, 16)}
+        </span>
+      </div>
+    )
+  } else {
+    return null // Return null if both participants and participant are not provided
+  }
 }
 
 TeamParticipants.propTypes = {
-  participants: PropTypes.arrayOf(PropTypes.object).isRequired,
-  gameId: PropTypes.number.isRequired,
-  imageSize: PropTypes.number.isRequired,
+  participants: PropTypes.arrayOf(PropTypes.object),
+  imageSize: PropTypes.number,
+  participant: PropTypes.object,
 }
 
 export default TeamParticipants

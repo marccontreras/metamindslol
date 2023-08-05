@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { CCol, CContainer, CListGroup, CListGroupItem, CRow } from '@coreui/react'
-import ParticipantItem from './ParticipantItem'
 import { Link } from 'react-router-dom'
 import TeamParticipants from './TeamParticipants'
 import MatchSummonerBuild from './MatchSummonerBuild'
@@ -85,9 +84,9 @@ const Match = ({ match, summonerName, summonerWon }) => {
                   gameId={gameId}
                   index={index}
                   match={match}
+                  singleMatch={true}
                 />
                 <ParticipantItems
-                  sm="auto"
                   key={gameId}
                   gameId={gameId}
                   index={index}
@@ -100,19 +99,11 @@ const Match = ({ match, summonerName, summonerWon }) => {
                     <CRow className="justify-content-start flex-nowrap">
                       <CCol>
                         {/* Display Team 1 Participants using TeamParticipants component */}
-                        <TeamParticipants
-                          participants={team1Participants}
-                          gameId={gameId}
-                          imageSize={30}
-                        />
+                        <TeamParticipants participants={team1Participants} imageSize={30} />
                       </CCol>
                       <CCol>
                         {/* Display Team 2 Participants using TeamParticipants component */}
-                        <TeamParticipants
-                          participants={team2Participants}
-                          gameId={gameId}
-                          imageSize={30}
-                        />
+                        <TeamParticipants participants={team2Participants} imageSize={30} />
                       </CCol>
                     </CRow>
                   </CContainer>
