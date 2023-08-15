@@ -28,7 +28,6 @@ const MatchSummonerBuild = (props) => {
               to={`/matchDetail/?${props.gameId}#participant${props.index}`}
               state={{
                 match: props.match,
-                participant: props.participant,
                 number: props.index,
               }}
               className="text-decoration-none text-black"

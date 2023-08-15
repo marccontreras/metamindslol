@@ -38,7 +38,7 @@ function extracted(listEightChampions, iteration) {
                 state={{ itemName: item.name }}
                 key={`link${item.name}`}
               >
-                {item.name} -{' '}
+                <p className="m-0 text-center text-decoration-none text-black">{item.name} </p>
                 <img key={item.name} src={process.env.PUBLIC_URL + imagePath} alt={item.image} />
               </Link>
             </CListGroupItem>

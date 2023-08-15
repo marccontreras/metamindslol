@@ -74,6 +74,34 @@ const Summoner = () => {
     },
     { wins: 0, loses: 0 },
   )
+
+  // Custom plugin to display text inside the doughnut chart
+  const doughnutTextPlugin = {
+    id: 'doughnutTextPlugin',
+    beforeDraw: function (chart) {
+      console.log('doughnutTextPlugin')
+      const width = chart.chartArea.width
+      const height = chart.chartArea.height
+      const ctx = chart.ctx
+
+      ctx.restore()
+      const fontSize = (height / 110).toFixed(2)
+      ctx.font = fontSize + 'em sans-serif'
+      ctx.textBaseline = 'middle'
+
+      const winrate = ((wins * 100) / (wins + loses)).toFixed(1) // Calculate the winrate
+      const text = winrate + '%' // Separate data1 and data2 with horizontal line
+      const textWidth = ctx.measureText(text).width // Calculate the width of the text
+
+      // Calculate the x position to center the text horizontally
+      const textX = (width - textWidth) / 2
+      const textY = height / 2 + chart.legend.height + chart.titleBlock.height
+
+      ctx.fillText(text, textX, textY) // Adjust vertical position
+
+      ctx.save()
+    },
+  }
   return (
     <div>
       <CContainer fluid className="d-flex justify-content-sm-start">
@@ -88,7 +116,7 @@ const Summoner = () => {
                   alt={summoner.profileIconId}
                 />
               </CRow>
-              <CRow className="justify-content-center">{summoner.summonerLevel}</CRow>
+              <CRow className="justify-content-center">LvL {summoner.summonerLevel}</CRow>
               <CRow className="mb-3">
                 {' '}
                 {/* Add the button that triggers the fetch call and page refresh */}
@@ -104,7 +132,7 @@ const Summoner = () => {
               <CRow className="mx-5">
                 {/* Conditionally render the chart only when the sum of wins and losses is greater than 0 */}
                 {wins + loses > 0 && (
-                  <CContainer sm="auto" className="m-0" style={{ height: '15%', width: '15%' }}>
+                  <CContainer sm="auto" className="m-0" style={{ height: '20%', width: '20%' }}>
                     <CChart
                       type="doughnut"
                       data={{
@@ -127,6 +155,7 @@ const Summoner = () => {
                           },
                         },
                       }}
+                      plugins={[doughnutTextPlugin]} // Add the plugin here
                     />
                   </CContainer>
                 )}

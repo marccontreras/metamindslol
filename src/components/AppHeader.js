@@ -34,10 +34,10 @@ const AppHeader = () => {
           </CNavItem>
         </CHeaderNav>
       </CContainer>
-      <CHeaderDivider />
-      <CContainer fluid>
-        <AppBreadcrumb />
-      </CContainer>
+      {/*<CHeaderDivider />*/}
+      {/*<CContainer fluid>*/}
+      {/*  <AppBreadcrumb />*/}
+      {/*</CContainer>*/}
     </CHeader>
   )
 }

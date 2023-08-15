@@ -59,7 +59,7 @@ const Match = ({ match, summonerName, summonerWon }) => {
               <CRow>
                 <CCol sm="auto">
                   <Link
-                    state={{ match: match, participant: participant, number: index }}
+                    state={{ match: match, number: index }}
                     to={`/matchDetail/?${gameId}#participant${index}`}
                     key={gameId}
                     className="text-decoration-none text-black"

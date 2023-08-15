@@ -1,19 +1,22 @@
-import React from 'react'
-import { CCol, CContainer, CRow } from '@coreui/react'
-import { useLocation } from 'react-router-dom'
+import React from 'react' // Import useState and useEffect
+import { CCol, CContainer, CListGroup, CListGroupItem, CRow } from '@coreui/react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import MatchSummonerBuild from './MatchSummonerBuild'
 import ParticipantItems from './ParticipantItems'
 import { CChart } from '@coreui/react-chartjs'
+import ChartComponent from '../charts/ChartComponent'
 
 const MatchDetail = () => {
   const location = useLocation()
   const { state } = location
-  if (!state) {
-    return <div>No match data available</div>
-  }
 
-  const { match, participantNumber } = state
+  const { match, number } = state
   const { gameId, participants } = match
+
+  // Get the participant whose index matches the number attribute
+  const selectedParticipant = participants[number]
+  var enemyParticipant = number >= 5 ? participants[number - 5] : participants[number + 5]
+  const navigate = useNavigate()
 
   function getFragment(participantPlayer, index) {
     return (
@@ -79,7 +82,7 @@ const MatchDetail = () => {
   return (
     <CContainer>
       <h2>Match Details</h2>
-      <p>Game ID: {gameId}</p>
+      {/*<p>Game ID: {gameId}</p>*/}
       <CRow>
         <CCol>
           <h3>Team 1</h3>
@@ -98,6 +101,84 @@ const MatchDetail = () => {
         <CCol>
           <CChart type="bar" data={chartData} />
         </CCol>
+      </CRow>
+      <CListGroup className={'mt-3 justify-content-center'} layout={'horizontal'}>
+        {participants.map((participant, index) => (
+          <CListGroupItem
+            key={index}
+            className="d-flex align-items-center p-0"
+            style={index === number ? { border: '2px solid #7986f8' } : {}}
+          >
+            <img
+              src={`/assets/images/champions/${participant.championName}.png`}
+              alt={participant.championName}
+              style={{
+                width: '50px',
+                height: '50px',
+                ...(index === number ? { border: '2px solid #7986f8' } : {}),
+              }}
+              onClick={() => {
+                navigate(`/matchDetail/?${gameId}#participant${index}`, {
+                  state: { match, number: index }, // Update the 'number' in the state
+                })
+              }}
+            />
+          </CListGroupItem>
+        ))}
+      </CListGroup>
+      {/*one for wards placed, seems like the rest will be implemented through the timelineMatch*/}
+      <CRow>
+        <div className="d-flex flex-wrap">
+          <CRow className="w-100">
+            <ChartComponent
+              data1={selectedParticipant.kills}
+              data2={enemyParticipant.kills}
+              label1={selectedParticipant.championName}
+              label2={enemyParticipant.championName}
+              title="Total Kills"
+            />
+            <ChartComponent
+              data1={selectedParticipant.goldEarned}
+              data2={enemyParticipant.goldEarned}
+              label1={selectedParticipant.championName}
+              label2={enemyParticipant.championName}
+              title="Gold obtained"
+            />
+            <ChartComponent
+              data1={
+                selectedParticipant.totalMinionsKilled + selectedParticipant.neutralMinionsKilled
+              }
+              data2={enemyParticipant.totalMinionsKilled + enemyParticipant.neutralMinionsKilled}
+              label1={selectedParticipant.championName}
+              label2={enemyParticipant.championName}
+              title="total CS"
+            />
+          </CRow>
+
+          <CRow className="w-100">
+            <ChartComponent
+              data1={selectedParticipant.visionScore}
+              data2={enemyParticipant.visionScore}
+              label1={selectedParticipant.championName}
+              label2={enemyParticipant.championName}
+              title="Vision Score"
+            />
+            <ChartComponent
+              data1={selectedParticipant.totalDamageTaken}
+              data2={enemyParticipant.totalDamageTaken}
+              label1={selectedParticipant.championName}
+              label2={enemyParticipant.championName}
+              title="Damage taken"
+            />
+            <ChartComponent
+              data1={selectedParticipant.damageDealtToTurrets}
+              data2={enemyParticipant.damageDealtToTurrets}
+              label1={selectedParticipant.championName}
+              label2={enemyParticipant.championName}
+              title="Damage dealt to turrets"
+            />
+          </CRow>
+        </div>
       </CRow>
     </CContainer>
   )
