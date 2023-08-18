@@ -7,7 +7,7 @@ import { getStyle } from '@coreui/utils'
 
 const Summoner = () => {
   const [matchList, setMatchList] = useState([])
-  const temporalSummoner = 'simply me' // Replace with your desired summoner name
+  //const temporalSummoner = 'simply me' // Replace with your desired summoner name
 
   // Access the location object using useLocation()
   const location = useLocation()

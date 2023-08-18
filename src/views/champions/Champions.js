@@ -3,7 +3,7 @@ import { CListGroup, CListGroupItem } from '@coreui/react'
 import { Link } from 'react-router-dom'
 
 const Champions = () => {
-  const [listItems, setListItems] = useState([])
+  const [listChampions, setlistChampions] = useState([])
 
   useEffect(() => {
     fetch('http://localhost:8080/champions')
@@ -13,13 +13,13 @@ const Champions = () => {
         }
         return response.json()
       })
-      .then((data) => setListItems(data))
+      .then((data) => setlistChampions(data))
       .catch((error) => console.error(error))
   }, [])
 
   let content = []
-  for (let i = 0; i < listItems.length; i + 8) {
-    let listEightChampions = listItems.splice(i, i + 8)
+  for (let i = 0; i < listChampions.length; i + 8) {
+    let listEightChampions = listChampions.splice(i, i + 8)
     content.push(extracted(listEightChampions, i))
   }
   return content
@@ -29,17 +29,21 @@ function extracted(listEightChampions, iteration) {
   return (
     <>
       <CListGroup layout="horizontal" key={iteration}>
-        {listEightChampions.map((item, index) => {
-          const imagePath = `/assets/images/champions/${item.image}`
+        {listEightChampions.map((champion, index) => {
+          const imagePath = `/assets/images/champions/${champion.image}`
           return (
-            <CListGroupItem key={item.name}>
+            <CListGroupItem key={champion.name}>
               <Link
-                to={`/champion/?champ=${item.name}`}
-                state={{ itemName: item.name }}
-                key={`link${item.name}`}
+                to={`/champion/?champ=${champion.name}`}
+                state={{ itemName: champion.name }}
+                key={`link${champion.name}`}
               >
-                <p className="m-0 text-center text-decoration-none text-black">{item.name} </p>
-                <img key={item.name} src={process.env.PUBLIC_URL + imagePath} alt={item.image} />
+                <p className="m-0 text-center text-decoration-none text-black">{champion.name} </p>
+                <img
+                  key={champion.name}
+                  src={process.env.PUBLIC_URL + imagePath}
+                  alt={champion.image}
+                />
               </Link>
             </CListGroupItem>
           )

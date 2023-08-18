@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { isNumber } from 'chart.js/helpers'
+import { CCol, CRow } from '@coreui/react'
+import parse from 'html-react-parser'
 
 //en el futur mirar de passar en el champion un props que sigui el nom del campio
 const Champion = () => {
   const location = useLocation()
   const itemName = location.state && location.state.itemName
   const [champion, setChampion] = useState([])
-  let path = 'http://localhost:8080/champions/champion/'
 
   useEffect(() => {
+    let path = 'http://localhost:8080/champions/champion/'
     if (isNumber(itemName)) {
       path = 'http://localhost:8080/champions/'
     }
@@ -22,24 +24,40 @@ const Champion = () => {
       })
       .then((data) => setChampion(data))
       .catch((error) => console.error(error))
-  }, [])
-  console.log(champion)
-  console.log('item name')
-  console.log(itemName)
+  }, [itemName])
   return (
     <div>
       <h1>Champion Details</h1>
-      <img src={'/assets/images/champions/' + champion.key + '.png'} alt={itemName} />
-      {itemName && <p>Item Name: {itemName}</p>}
-
+      <CRow className="align-items-center pb-2">
+        <CCol sm="auto">
+          <img src={'/assets/images/champions/' + champion.key + '.png'} alt={itemName} />
+        </CCol>
+        <CCol>
+          <h1>{itemName}</h1>
+        </CCol>
+      </CRow>
       {champion.passive ? (
         <div>
-          <p>{champion.passive.name}</p>
-          <img
-            key={champion.passive.image.full}
-            src={'/assets/images/passive/' + champion.passive.image.full}
-            alt={champion.passive.image.full}
-          />
+          <span>
+            <strong>{champion.passive.name}</strong>
+          </span>
+          <CRow className="align-items-center pb-2">
+            <CCol sm="auto">
+              <img
+                key={champion.passive.image.full}
+                src={'/assets/images/passive/' + champion.passive.image.full}
+                alt={champion.passive.image.full}
+              />
+            </CCol>
+            <CCol>
+              {parse(
+                champion.passive.description
+                  .replace('<br><br>', '<br>')
+                  .replace('\\n\\n', '<br>')
+                  .replace('.\\n\\n', '.<br>'),
+              )}
+            </CCol>
+          </CRow>
         </div>
       ) : (
         ''
@@ -48,12 +66,27 @@ const Champion = () => {
       {champion.spells
         ? champion.spells.map((spell) => (
             <div key={spell.image.full}>
-              <p key={spell.name}> {spell.name}</p>
-              <img
-                key={spell.image.full}
-                src={'/assets/images/spell/' + spell.image.full}
-                alt={spell.image.full.split('.')[0]}
-              />
+              <span key={spell.name}>
+                {' '}
+                <strong>{spell.name}</strong>
+              </span>
+              <CRow className="align-items-center pb-2">
+                <CCol sm="auto">
+                  <img
+                    key={spell.image.full}
+                    src={'/assets/images/spell/' + spell.image.full}
+                    alt={spell.image.full.split('.')[0]}
+                  />
+                </CCol>
+                <CCol>
+                  {parse(
+                    spell.description
+                      .replace('<br><br>', '<br>')
+                      .replace('\\n\\n', '<br>')
+                      .replace('.\\n\\n', '.<br>'),
+                  )}
+                </CCol>
+              </CRow>
             </div>
           ))
         : ''}

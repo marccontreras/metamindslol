@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { CCol, CContainer, CListGroup, CListGroupItem, CRow } from '@coreui/react'
+import { CCol, CContainer, CListGroupItem, CRow } from '@coreui/react'
 import { Link } from 'react-router-dom'
 import TeamParticipants from './TeamParticipants'
 import MatchSummonerBuild from './MatchSummonerBuild'
@@ -8,18 +8,18 @@ import ParticipantItems from './ParticipantItems'
 
 const Match = ({ match, summonerName, summonerWon }) => {
   const {
-    gameCreation,
+    //gameCreation,
     gameDuration,
     gameId,
-    gameMode,
-    gameName,
-    gameStartTimestamp,
+    //gameMode,
+    //gameName,
+    //gameStartTimestamp,
     gameEndTimestamp,
-    gameType,
-    gameVersion,
-    map,
+    //gameType,
+    //gameVersion,
+    //map,
     participants,
-    platform,
+    //platform,
     queue,
     teams,
   } = match
@@ -119,18 +119,18 @@ const Match = ({ match, summonerName, summonerWon }) => {
 
 Match.propTypes = {
   match: PropTypes.shape({
-    gameCreation: PropTypes.number.isRequired,
+    //gameCreation: PropTypes.number.isRequired,
     gameDuration: PropTypes.number.isRequired,
     gameId: PropTypes.number.isRequired,
-    gameMode: PropTypes.string.isRequired,
-    gameName: PropTypes.string.isRequired,
-    gameStartTimestamp: PropTypes.number.isRequired,
+    //gameMode: PropTypes.string.isRequired,
+    //gameName: PropTypes.string.isRequired,
+    //gameStartTimestamp: PropTypes.number.isRequired,
     gameEndTimestamp: PropTypes.number.isRequired,
-    gameType: PropTypes.string.isRequired,
-    gameVersion: PropTypes.string.isRequired,
-    map: PropTypes.string.isRequired,
+    //gameType: PropTypes.string.isRequired,
+    //gameVersion: PropTypes.string.isRequired,
+    //map: PropTypes.string.isRequired,
     participants: PropTypes.arrayOf(PropTypes.object).isRequired,
-    platform: PropTypes.string.isRequired,
+    //platform: PropTypes.string.isRequired,
     queue: PropTypes.string.isRequired,
     teams: PropTypes.arrayOf(PropTypes.object).isRequired,
   }).isRequired,

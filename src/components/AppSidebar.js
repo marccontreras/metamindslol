@@ -1,13 +1,13 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { CSidebar, CSidebarBrand, CSidebarNav, CSidebarToggler } from '@coreui/react'
-import CIcon from '@coreui/icons-react'
+import { CContainer, CSidebar, CSidebarBrand, CSidebarNav, CSidebarToggler } from '@coreui/react'
+//import CIcon from '@coreui/icons-react'
 
 import { AppSidebarNav } from './AppSidebarNav'
 
-import { logoNegative } from 'src/assets/brand/logo-negative'
-import { sygnet } from 'src/assets/brand/sygnet'
+//import { logoNegative } from 'src/assets/brand/logo-negative'
+//import { sygnet } from 'src/assets/brand/sygnet'
 
 import SimpleBar from 'simplebar-react'
 //import 'simplebar/dist/simplebar.min.css'
@@ -30,17 +30,16 @@ const AppSidebar = () => {
       }}
     >
       <CSidebarBrand className="d-none d-md-flex" to="/">
-        <CIcon className="sidebar-brand-full" icon={logoNegative} height={35} />
-        <CIcon className="sidebar-brand-narrow" icon={sygnet} height={35} />
+        <CContainer className="justify-content-center w-50">
+          <img src="/assets/images/brand/logo.png" height={50} alt="metamindslol" />
+        </CContainer>
       </CSidebarBrand>
       <CSidebarNav>
-        <SimpleBar>
-          <AppSidebarNav items={navigation} />
-        </SimpleBar>
+        <AppSidebarNav items={navigation} />
       </CSidebarNav>
       <CSidebarToggler
         className="d-none d-lg-flex"
-        onClick={() => dispatch({ type: 'set', sidebarUnfoldable: !unfoldable })}
+        onClick={() => dispatch({ type: 'set', sidebarShow: !sidebarShow })}
       />
     </CSidebar>
   )
