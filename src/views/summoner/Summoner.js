@@ -12,14 +12,14 @@ const Summoner = () => {
   // Access the location object using useLocation()
   const location = useLocation()
 
+  // Destructure 'summoner' object to get 'name' and 'summonerPlatform'
+  if (location.state == null) window.location.replace('/dashboard')
+
   // Access the 'summoner' object from the location state
   const { summoner } = location.state
-
-  // Destructure 'summoner' object to get 'name' and 'summonerPlatform'
   const { name, platform } = summoner
 
-  console.log(platform)
-  console.log(name)
+  console.log('summoner ' + summoner)
   const handleFetchMatchList = () => {
     fetch(`http://localhost:8080/match/${platform}/matches/summoner/${name}`)
       .then((response) => {
@@ -102,90 +102,104 @@ const Summoner = () => {
       ctx.save()
     },
   }
-  return (
-    <div>
-      <CContainer fluid className="d-flex justify-content-sm-start">
-        <CCol>
-          <CRow>
-            <CCol sm="auto">
-              <CRow>
-                <img
-                  style={{ height: '100px', width: '100px' }}
-                  className="ms-2 p-0"
-                  src={'/assets/images/profileicon/' + summoner.profileIconId + '.png'}
-                  alt={summoner.profileIconId}
-                />
-              </CRow>
-              <CRow className="justify-content-center">LvL {summoner.summonerLevel}</CRow>
-              <CRow className="mb-3">
-                {' '}
-                {/* Add the button that triggers the fetch call and page refresh */}
-                <CButton color="success" onClick={handleFetchMatchList}>
-                  Update
-                </CButton>
-              </CRow>
-            </CCol>
+
+  // Check if 'summoner' is not a string with the text "Summoner Not found" or 'Region Not found'
+  const isSummonerValid = !summoner.includes('Not found')
+
+  {
+    if (isSummonerValid) {
+      return (
+        <div>
+          <CContainer fluid className="d-flex justify-content-sm-start">
             <CCol>
-              <CRow className="mx-2">
-                <h1 style={{ whiteSpace: 'nowrap' }}>{name}</h1>
-              </CRow>
-              <CRow className="mx-5">
-                {/* Conditionally render the chart only when the sum of wins and losses is greater than 0 */}
-                {wins + loses > 0 && (
-                  <CContainer sm="auto" className="m-0" style={{ height: '20%', width: '20%' }}>
-                    <CChart
-                      type="doughnut"
-                      data={{
-                        labels: ['Wins', 'Loses'],
-                        datasets: [
-                          {
-                            backgroundColor: ['#41B883', '#DD1B16'],
-                            data: [wins, loses],
-                          },
-                        ],
-                      }}
-                      options={{
-                        responsive: true,
-                        maintainAspectRatio: true,
-                        plugins: {
-                          legend: {
-                            labels: {
-                              color: getStyle('--cui-body-color'),
-                            },
-                          },
-                        },
-                      }}
-                      plugins={[doughnutTextPlugin]} // Add the plugin here
+              <CRow>
+                <CCol sm="auto">
+                  <CRow>
+                    <img
+                      style={{ height: '100px', width: '100px' }}
+                      className="ms-2 p-0"
+                      src={'/assets/images/profileicon/' + summoner.profileIconId + '.png'}
+                      alt={summoner.profileIconId}
                     />
-                  </CContainer>
-                )}
+                  </CRow>
+                  <CRow className="justify-content-center">LvL {summoner.summonerLevel}</CRow>
+                  <CRow className="mb-3">
+                    {' '}
+                    {/* Add the button that triggers the fetch call and page refresh */}
+                    <CButton color="success" onClick={handleFetchMatchList}>
+                      Update
+                    </CButton>
+                  </CRow>
+                </CCol>
+                <CCol>
+                  <CRow className="mx-2">
+                    <h1 style={{ whiteSpace: 'nowrap' }}>{name}</h1>
+                  </CRow>
+                  <CRow className="mx-5">
+                    {/* Conditionally render the chart only when the sum of wins and losses is greater than 0 */}
+                    {wins + loses > 0 && (
+                      <CContainer sm="auto" className="m-0" style={{ height: '20%', width: '20%' }}>
+                        <CChart
+                          type="doughnut"
+                          data={{
+                            labels: ['Wins', 'Loses'],
+                            datasets: [
+                              {
+                                backgroundColor: ['#41B883', '#DD1B16'],
+                                data: [wins, loses],
+                              },
+                            ],
+                          }}
+                          options={{
+                            responsive: true,
+                            maintainAspectRatio: true,
+                            plugins: {
+                              legend: {
+                                labels: {
+                                  color: getStyle('--cui-body-color'),
+                                },
+                              },
+                            },
+                          }}
+                          plugins={[doughnutTextPlugin]} // Add the plugin here
+                        />
+                      </CContainer>
+                    )}
+                  </CRow>
+                </CCol>
               </CRow>
             </CCol>
-          </CRow>
-        </CCol>
-      </CContainer>
-      <div>
-        {Array.isArray(sortedMatchList) && sortedMatchList.length > 0 ? (
-          sortedMatchList.map((match) => {
-            const firstTeam = match.teams[0]
-            const teamWinner = firstTeam.win === true ? firstTeam.teamId : match.teams[1].teamId
-            // Calculate the value of summonerWon based on the comparison
-            const summonerWon =
-              match.participants.find((participant) => participant.summonerName === name)?.team ===
-              teamWinner
-            return (
-              // Add the return statement here
-              <CListGroup key={match.id}>
-                <Match match={match} summonerName={name} summonerWon={summonerWon} />
-              </CListGroup>
-            )
-          })
-        ) : (
-          <p>No Ranked games found, try updating</p>
-        )}
-      </div>
-    </div>
-  )
+          </CContainer>
+          <div>
+            {Array.isArray(sortedMatchList) && sortedMatchList.length > 0 ? (
+              sortedMatchList.map((match) => {
+                const firstTeam = match.teams[0]
+                const teamWinner = firstTeam.win === true ? firstTeam.teamId : match.teams[1].teamId
+                // Calculate the value of summonerWon based on the comparison
+                const summonerWon =
+                  match.participants.find((participant) => participant.summonerName === name)
+                    ?.team === teamWinner
+                return (
+                  // Add the return statement here
+                  <CListGroup key={match.id}>
+                    <Match match={match} summonerName={name} summonerWon={summonerWon} />
+                  </CListGroup>
+                )
+              })
+            ) : (
+              <p>No Ranked games found, try updating</p>
+            )}
+          </div>
+        </div>
+      )
+    } else {
+      return (
+        <div>
+          <p>Summoner Not Found</p>
+        </div>
+      )
+    }
+  }
 }
 
 export default Summoner
