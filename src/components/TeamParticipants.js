@@ -40,7 +40,7 @@ const TeamParticipants = ({ participants, imageSize, participant }) => {
     return (
       <>
         {participants.map((participant, index) => (
-          <div key={index} className="d-flex align-items-center">
+          <div key={index} className="d-flex">
             <img
               style={{ height: imageSize, width: imageSize }}
               className="ms-2 p-1"
@@ -50,10 +50,10 @@ const TeamParticipants = ({ participants, imageSize, participant }) => {
             />
             <span
               className="ms-2"
-              style={{ cursor: 'pointer', whiteSpace: 'pre' }}
+              style={{ cursor: 'pointer', whiteSpace: 'pre', width: '150px' }}
               onClick={() => fetchSummoner(participant)}
             >
-              {fillStringWithSpaces(participant.summonerName, 16)}
+              {participant.summonerName}
             </span>
           </div>
         ))}
@@ -71,7 +71,7 @@ const TeamParticipants = ({ participants, imageSize, participant }) => {
       </div>
     )
   } else {
-    return null // Return null if both participants and participant are not provided
+    return <div>No participant is being given</div> // Return null if both participants and participant are not provided
   }
 }
 

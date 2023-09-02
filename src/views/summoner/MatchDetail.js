@@ -1,10 +1,10 @@
 import React from 'react' // Import useState and useEffect
 import { CCol, CContainer, CListGroup, CListGroupItem, CRow } from '@coreui/react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import MatchSummonerBuild from './MatchSummonerBuild'
-import ParticipantItems from './ParticipantItems'
+import MatchSummonerBuild from '../../components/MatchSummonerBuild'
+import ParticipantItems from '../../components/ParticipantItems'
 import { CChart } from '@coreui/react-chartjs'
-import ChartComponent from '../charts/ChartComponent'
+import ChartComponent from '../../components/ChartComponent'
 
 const MatchDetail = () => {
   const location = useLocation()

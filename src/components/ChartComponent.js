@@ -19,10 +19,7 @@ const ChartComponent = ({ data1, data2, label1, label2, title }) => {
       ctx.textBaseline = 'middle'
 
       const text = `${data1}\n-------------------\n${data2}` // Separate data1 and data2 with horizontal line
-      //const textWidth = ctx.measureText(data1).width // Calculate the width of the text
 
-      // Calculate the x position to center the text horizontally
-      //const textX = Math.round((width - textWidth) / 2)
       const textY = height / 2 + chart.legend.height + chart.titleBlock.height
 
       const lines = text.split('\n')

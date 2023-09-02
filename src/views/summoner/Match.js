@@ -2,9 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { CCol, CContainer, CListGroupItem, CRow } from '@coreui/react'
 import { Link } from 'react-router-dom'
-import TeamParticipants from './TeamParticipants'
-import MatchSummonerBuild from './MatchSummonerBuild'
-import ParticipantItems from './ParticipantItems'
+import TeamParticipants from '../../components/TeamParticipants'
+import MatchSummonerBuild from '../../components/MatchSummonerBuild'
+import ParticipantItems from '../../components/ParticipantItems'
 
 const Match = ({ match, summonerName, summonerWon }) => {
   const {
@@ -70,7 +70,12 @@ const Match = ({ match, summonerName, summonerWon }) => {
                           {summonerWon ? 'WIN ' : 'LOSE'}
                         </span>
                       </CRow>
-                      <CRow>Game Mode:{queue.replace('TEAM_BUILDER_', '')}</CRow>
+                      <CRow>
+                        <span className="px-0" style={{ width: '200px' }}>
+                          Game Mode:
+                          {queue.replace('TEAM_BUILDER_', '').replace('_SR', '').replace('_', ' ')}
+                        </span>
+                      </CRow>
                     </CRow>
                     <CRow className="justify-content-around">
                       <CRow>{formatGameDuration(match.gameDuration)}</CRow>

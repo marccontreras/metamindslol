@@ -20,12 +20,12 @@ const Champions = () => {
   let content = []
   for (let i = 0; i < listChampions.length; i + 8) {
     let listEightChampions = listChampions.splice(i, i + 8)
-    content.push(extracted(listEightChampions, i))
+    content.push(renderChampionsRow(listEightChampions, i))
   }
   return content
 }
 
-function extracted(listEightChampions, iteration) {
+function renderChampionsRow(listEightChampions, iteration) {
   return (
     <>
       <CListGroup layout="horizontal" key={iteration}>

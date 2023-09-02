@@ -181,7 +181,7 @@ const Summoner = () => {
             )
           })
         ) : (
-          <p>No games found, try updating</p>
+          <p>No Ranked games found, try updating</p>
         )}
       </div>
     </div>
