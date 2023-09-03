@@ -1,17 +1,6 @@
 import React from 'react'
 import CIcon from '@coreui/icons-react'
-import {
-  cilBell,
-  cilCalcFulator,
-  cilCalculator,
-  cilChartPie,
-  cilGroup,
-  cilHome,
-  cilList,
-  cilPuzzle,
-  cilSpeedometer,
-  cilStar,
-} from '@coreui/icons'
+import { cilGroup, cilHome, cilList } from '@coreui/icons'
 import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
 import { isArray } from 'chart.js/helpers'
 
