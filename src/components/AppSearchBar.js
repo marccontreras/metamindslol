@@ -57,7 +57,7 @@ const SearchBar = () => {
   return (
     <div>
       {/* Pass searchSummoners as summoners prop to SummonerDropdown */}
-      <CDropdown variant="nav-item">
+      <CDropdown variant="dropdown">
         <CDropdownToggle
           className="py-0 flex justify-content-between align-items-center"
           caret={false}
