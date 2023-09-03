@@ -66,6 +66,7 @@ const SearchBar = () => {
           <input
             ref={searchInput}
             type="text"
+            autoFocus="true"
             placeholder="Search...                                                   "
             value={searchQuery}
             onChange={handleInputChange}
