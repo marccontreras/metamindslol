@@ -36,13 +36,10 @@ const SearchBar = () => {
       .catch((error) => console.error('Error fetching search results:', error))
   }
 
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
-    if (event.key === 'Enter' || event.key === 's') {
-      console.log('tecla; ' + event.key)
-      //setVisible((prevVisible) => !prevVisible)
-    }
-    if (event.key === 'Enter' && searchQuery.length > 0) {
-      console.log('HORA DENVIAR ' + searchQuery)
+  const handleFormSubmit = (event) => {
+    event.preventDefault() // Prevent the default form submission behavior
+
+    if (searchQuery.length > 0) {
       fetch(`https://metamindslol-backend-b6e08f21de0e.herokuapp.com/summoners/EUW/${searchQuery}`)
         .then((response) => response.json())
         .then((data) => {
@@ -56,30 +53,26 @@ const SearchBar = () => {
 
   return (
     <div>
-      {/* Pass searchSummoners as summoners prop to SummonerDropdown */}
-      <CDropdown variant="dropdown">
-        <CDropdownToggle
-          className="py-0 flex justify-content-between align-items-center"
-          caret={false}
-          trigger="click"
-        >
-          <input
-            ref={searchInput}
-            type="text"
-            placeholder="Search...                                                   "
-            value={searchQuery}
-            onChange={handleInputChange}
-            onKeyDown={handleKeyDown}
-            className="min-vw-50 w-100"
-          />{' '}
-          <SummonerDropdown summoners={searchSummoners} />
-        </CDropdownToggle>{' '}
-      </CDropdown>
-      {/* <ul>
-        {searchSummoners.map((result) => (
-          <li key={result.puuid}>{result.name}</li>
-        ))}
-      </ul>*/}
+      {/* Use a <form> element to wrap the input */}
+      <form onSubmit={handleFormSubmit}>
+        <CDropdown variant="dropdown">
+          <CDropdownToggle
+            className="py-0 flex justify-content-between align-items-center"
+            caret={false}
+            trigger="click"
+          >
+            <input
+              ref={searchInput}
+              type="text"
+              placeholder="Search..."
+              value={searchQuery}
+              onChange={handleInputChange}
+              className="min-vw-50 w-100"
+            />{' '}
+            <SummonerDropdown summoners={searchSummoners} />
+          </CDropdownToggle>{' '}
+        </CDropdown>
+      </form>
     </div>
   )
 }
