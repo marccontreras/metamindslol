@@ -15,7 +15,7 @@ const SummonerDropdown = ({ summoners }) => {
               state={{ summoner: summoner }} // Pass the whole summoner object as the state
               key={`link${summoner.name}`}
             >
-              <CContainer>
+              <CContainer className="mx-0">
                 <img
                   style={{ height: '50px' }}
                   className="ms-2"
