@@ -28,7 +28,7 @@ const AppHeader = () => {
         >
           <CIcon icon={cilMenu} size="lg" />
         </CHeaderToggler>
-        <CHeaderNav className="w-75 mx-5">
+        <CHeaderNav className="w-75 mx-3 flex-fill">
           <CNavItem className="w-100">
             <AppSearchBar />
           </CNavItem>

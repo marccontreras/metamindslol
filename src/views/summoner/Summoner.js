@@ -106,8 +106,8 @@ const Summoner = () => {
     },
   }
 
-  // Check if 'summoner' is not a string with the text "Summoner Not found" or 'Region Not found'
-  const isSummonerValid = !summoner.includes('Not found')
+  // Check if 'summoner' is an object or a string
+  const isSummonerValid = typeof summoner === 'object' || typeof summoner === 'string'
 
   {
     if (isSummonerValid) {
