@@ -50,26 +50,16 @@ const SearchBar = () => {
 
   return (
     <div>
-      <CDropdown variant="nav-item">
-        <CDropdownToggle
-          className="py-0 flex justify-content-between align-items-center"
-          caret={false}
-          trigger="click"
-        >
-          <Select
-            className="w-100"
-            placeholder="Search..."
-            value={searchQuery}
-            onChange={(selectedOption) => handleInputChange(selectedOption.value)}
-            onKeyDown={handleKeyDown}
-            options={searchSummoners.map((result) => ({
-              value: result.name,
-              label: result.name,
-            }))}
-          />
-          <SummonerDropdown summoners={searchSummoners} />
-        </CDropdownToggle>
-      </CDropdown>
+      <Select
+        className="w-100"
+        placeholder="Search..."
+        value={searchQuery}
+        onChange={(selectedOption) => handleInputChange(selectedOption.value)}
+        onKeyDown={handleKeyDown}
+        options={searchSummoners.map((result) => (
+          <SummonerDropdown key="result" summoner={result} />
+        ))}
+      />
     </div>
   )
 }
