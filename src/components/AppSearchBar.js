@@ -1,9 +1,26 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import SummonerDropdown from './header/SummonerDropdown'
-import { CDropdown, CDropdownToggle } from '@coreui/react'
+import Dropdown from './header/CustomDropdownToggle.tsx'
+import { CDropdown } from '@coreui/react'
 import { useNavigate } from 'react-router-dom'
-import Select from 'react-select'
+import PropTypes from 'prop-types'
+
+function Input({ index, input, handleInputChange, handleKeyDown, ...props }) {
+  console.log(handleInputChange)
+  return (
+    <div {...props}>
+      <input
+        type="text"
+        placeholder="Search...                                                   "
+        value={input}
+        onChange={(e) => handleInputChange(e)}
+        onKeyDown={(e) => handleKeyDown(e)}
+        className="min-vw-50 w-100"
+      />
+    </div>
+  )
+}
 
 const SearchBar = () => {
   const [searchQuery, setSearchQuery] = useState('')
@@ -12,8 +29,9 @@ const SearchBar = () => {
 
   const dispatch = useDispatch()
   const summonerShow = useSelector((state) => state.summonerShow)
-
-  const handleInputChange = (value) => {
+  const handleInputChange = (event) => {
+    console.log(event)
+    const { value } = event.target
     setSearchQuery(value)
 
     // Make the API call here using the search query
@@ -30,10 +48,10 @@ const SearchBar = () => {
       .catch((error) => console.error('Error fetching search results:', error))
   }
 
-  const handleKeyDown = (event) => {
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
     if (event.key === 'Enter' || event.key === 's') {
-      console.log('tecla: ' + event.key)
-      // Do something with the search key press
+      console.log('tecla; ' + event.key)
+      //setVisible((prevVisible) => !prevVisible)
     }
     if (event.key === 'Enter' && searchQuery.length > 0) {
       console.log('HORA DENVIAR ' + searchQuery)
@@ -50,18 +68,34 @@ const SearchBar = () => {
 
   return (
     <div>
-      <Select
-        className="w-100"
-        placeholder="Search..."
-        value={searchQuery}
-        onChange={(selectedOption) => handleInputChange(selectedOption.value)}
-        onKeyDown={handleKeyDown}
-        options={searchSummoners.map((result) => (
-          <SummonerDropdown key="result" summoner={result} />
+      {/* Pass searchSummoners as summoners prop to SummonerDropdown */}
+      <CDropdown variant="nav-item">
+        <Dropdown
+          className="py-0 flex justify-content-between align-items-center"
+          caret={false}
+          trigger="click"
+        >
+          <Input
+            key="temp"
+            handleInputChange={handleInputChange}
+            handleKeyDown={handleKeyDown}
+            input={searchQuery}
+          />
+          <SummonerDropdown summoners={searchSummoners} />
+        </Dropdown>{' '}
+      </CDropdown>
+      {/* <ul>
+        {searchSummoners.map((result) => (
+          <li key={result.puuid}>{result.name}</li>
         ))}
-      />
+      </ul>*/}
     </div>
   )
 }
-
+Input.propTypes = {
+  index: PropTypes.number.isRequired,
+  input: PropTypes.string.isRequired,
+  handleInputChange: PropTypes.func.isRequired,
+  handleKeyDown: PropTypes.func.isRequired,
+}
 export default SearchBar
