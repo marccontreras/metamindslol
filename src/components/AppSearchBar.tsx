@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import SummonerDropdown from './header/SummonerDropdown'
 import { CDropdown, CDropdownToggle } from '@coreui/react'
@@ -6,12 +6,19 @@ import { useNavigate } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 function Input({ input, handleInputChange, handleKeyDown, ...props }) {
-  console.log(handleInputChange)
+  const inputRef = useRef(null)
+
+  // Set focus on the input element when it renders
+  useEffect(() => {
+    inputRef.current.focus()
+  }, [])
+
   return (
     <div {...props}>
       <input
+        ref={inputRef} // Use the ref to maintain focus
         type="text"
-        placeholder="Search...                                                   "
+        placeholder="Search..."
         value={input}
         onChange={(e) => handleInputChange(e)}
         onKeyDown={(e) => handleKeyDown(e)}
@@ -47,10 +54,10 @@ const SearchBar = () => {
       .catch((error) => console.error('Error fetching search results:', error))
   }
 
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
+  const handleKeyDown = (event) => {
     if (event.key === 'Enter' || event.key === 's') {
       console.log('tecla; ' + event.key)
-      //setVisible((prevVisible) => !prevVisible)
+      // setVisible((prevVisible) => !prevVisible);
     }
     if (event.key === 'Enter' && searchQuery.length > 0) {
       console.log('HORA DENVIAR ' + searchQuery)
@@ -83,18 +90,14 @@ const SearchBar = () => {
           <SummonerDropdown summoners={searchSummoners} />
         </CDropdownToggle>{' '}
       </CDropdown>
-      {/* <ul>
-        {searchSummoners.map((result) => (
-          <li key={result.puuid}>{result.name}</li>
-        ))}
-      </ul>*/}
     </div>
   )
 }
+
 Input.propTypes = {
-  index: PropTypes.number.isRequired,
   input: PropTypes.string.isRequired,
   handleInputChange: PropTypes.func.isRequired,
   handleKeyDown: PropTypes.func.isRequired,
 }
+
 export default SearchBar
