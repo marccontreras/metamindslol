@@ -20,6 +20,7 @@ const Summoner = () => {
   const { name, platform } = summoner
 
   console.log('summoner ' + summoner)
+  console.log(summoner)
   const handleFetchMatchList = () => {
     fetch(
       `https://metamindslol-backend-b6e08f21de0e.herokuapp.com/match/${platform}/matches/summoner/${name}`,
