@@ -33,7 +33,7 @@ const Champion = () => {
           <img src={'/assets/images/champions/' + champion.key + '.png'} alt={itemName} />
         </CCol>
         <CCol>
-          <h1>{itemName}</h1>
+          <h1>{champion.name}</h1>
         </CCol>
       </CRow>
       {champion.passive ? (
