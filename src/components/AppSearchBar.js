@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import SummonerDropdown from './header/SummonerDropdown'
 import Dropdown from './header/CustomDropdownToggle.tsx'
@@ -12,6 +12,12 @@ const SearchBar = () => {
 
   const dispatch = useDispatch()
   const summonerShow = useSelector((state) => state.summonerShow)
+
+  const searchInput = React.useRef(null)
+  useEffect(() => {
+    searchInput.current.focus()
+  }, [searchQuery])
+
   const handleInputChange = (event) => {
     const { value } = event.target
     setSearchQuery(value)
@@ -58,6 +64,7 @@ const SearchBar = () => {
           trigger="click"
         >
           <input
+            ref={searchInput}
             type="text"
             placeholder="Search...                                                   "
             value={searchQuery}
@@ -65,8 +72,8 @@ const SearchBar = () => {
             onKeyDown={handleKeyDown}
             className="min-vw-50 w-100"
           />{' '}
+          <SummonerDropdown summoners={searchSummoners} />
         </Dropdown>{' '}
-        <SummonerDropdown summoners={searchSummoners} />
       </CDropdown>
       {/* <ul>
         {searchSummoners.map((result) => (
