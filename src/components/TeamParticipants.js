@@ -10,7 +10,7 @@ const TeamParticipants = ({ participants, imageSize, participant }) => {
     const summonerName = selectedParticipant.summonerName
 
     // Make the API call here using the search query
-    fetch(`http://localhost:8080/summoners/EUW1/${summonerName}`)
+    fetch(`https://metamindslol-backend-b6e08f21de0e.herokuapp.com/summoners/EUW1/${summonerName}`)
       .then((response) => response.json())
       .then((data) => {
         if (data !== 'Summoner not found') {
@@ -23,6 +23,7 @@ const TeamParticipants = ({ participants, imageSize, participant }) => {
       })
       .catch((error) => console.error('Error fetching summoner data:', error))
   }
+
   function fillStringWithSpaces(toFormat, desiredLength) {
     let amountToFill = (desiredLength - toFormat.length) / 2
     let halfFormatted = toFormat.padStart(toFormat.length + amountToFill, ' ')

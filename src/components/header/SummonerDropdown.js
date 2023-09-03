@@ -19,7 +19,11 @@ const SummonerDropdown = ({ summoners }) => {
                 <img
                   style={{ height: '50px' }}
                   className="ms-2"
-                  src={'/assets/images/profileicon/' + summoner.profileIconId + '.png'}
+                  src={
+                    'https://ddragon.leagueoflegends.com/cdn/13.17.1/img/profileicon/' +
+                    summoner.profileIconId +
+                    '.png'
+                  }
                   alt={summoner.profileIconId}
                 />
                 {summoner.name && (

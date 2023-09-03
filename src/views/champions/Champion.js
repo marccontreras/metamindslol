@@ -11,9 +11,9 @@ const Champion = () => {
   const [champion, setChampion] = useState([])
 
   useEffect(() => {
-    let path = 'http://localhost:8080/champions/champion/'
+    let path = 'https://metamindslol-backend-b6e08f21de0e.herokuapp.com/champions/champion/'
     if (isNumber(itemName)) {
-      path = 'http://localhost:8080/champions/'
+      path = 'https://metamindslol-backend-b6e08f21de0e.herokuapp.com/champions/'
     }
     fetch(path + itemName)
       .then((response) => {

@@ -21,7 +21,9 @@ const Summoner = () => {
 
   console.log('summoner ' + summoner)
   const handleFetchMatchList = () => {
-    fetch(`http://localhost:8080/match/${platform}/matches/summoner/${name}`)
+    fetch(
+      `https://metamindslol-backend-b6e08f21de0e.herokuapp.com/match/${platform}/matches/summoner/${name}`,
+    )
       .then((response) => {
         if (!response.ok) {
           throw new Error('Failed to fetch data')
@@ -37,8 +39,8 @@ const Summoner = () => {
   }
 
   useEffect(() => {
-    //fetch(`http://localhost:8080/match/EUW/recentMatch/summoner/${temporalSummoner}`)
-    fetch(`http://localhost:8080/match/EUW/summoner/${name}`)
+    //fetch(`https://metamindslol-backend-b6e08f21de0e.herokuapp.com/match/EUW/recentMatch/summoner/${temporalSummoner}`)
+    fetch(`https://metamindslol-backend-b6e08f21de0e.herokuapp.com/match/EUW/summoner/${name}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error('Failed to fetch data')
@@ -118,7 +120,11 @@ const Summoner = () => {
                     <img
                       style={{ height: '100px', width: '100px' }}
                       className="ms-2 p-0"
-                      src={'/assets/images/profileicon/' + summoner.profileIconId + '.png'}
+                      src={
+                        'https://ddragon.leagueoflegends.com/cdn/13.17.1/img/profileicon/' +
+                        summoner.profileIconId +
+                        '.png'
+                      }
                       alt={summoner.profileIconId}
                     />
                   </CRow>

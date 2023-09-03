@@ -6,7 +6,9 @@ import { isArray } from 'chart.js/helpers'
 
 const fetchChampions = async () => {
   try {
-    const response = await fetch('http://localhost:8080/champions')
+    const response = await fetch(
+      'https://metamindslol-backend-b6e08f21de0e.herokuapp.com/champions',
+    )
     if (!response.ok) {
       throw new Error('Failed to fetch data')
     }
