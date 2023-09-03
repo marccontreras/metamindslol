@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import SummonerDropdown from './header/SummonerDropdown'
-import Dropdown from './header/CustomDropdownToggle.tsx'
-import { CDropdown } from '@coreui/react'
+import { CDropdown, CDropdownToggle } from '@coreui/react'
 import { useNavigate } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
-function Input({ index, input, handleInputChange, handleKeyDown, ...props }) {
+function Input({ input, handleInputChange, handleKeyDown, ...props }) {
   console.log(handleInputChange)
   return (
     <div {...props}>
@@ -28,7 +27,7 @@ const SearchBar = () => {
   const navigate = useNavigate()
 
   const dispatch = useDispatch()
-  const summonerShow = useSelector((state) => state.summonerShow)
+  let summonerShow = false
   const handleInputChange = (event) => {
     console.log(event)
     const { value } = event.target
@@ -70,7 +69,7 @@ const SearchBar = () => {
     <div>
       {/* Pass searchSummoners as summoners prop to SummonerDropdown */}
       <CDropdown variant="nav-item">
-        <Dropdown
+        <CDropdownToggle
           className="py-0 flex justify-content-between align-items-center"
           caret={false}
           trigger="click"
@@ -82,7 +81,7 @@ const SearchBar = () => {
             input={searchQuery}
           />
           <SummonerDropdown summoners={searchSummoners} />
-        </Dropdown>{' '}
+        </CDropdownToggle>{' '}
       </CDropdown>
       {/* <ul>
         {searchSummoners.map((result) => (

@@ -13,7 +13,7 @@ import { cilMenu } from '@coreui/icons'
 
 //import { AppBreadcrumb } from './index'
 
-import AppSearchBar from './AppSearchBar'
+import AppSearchBar from './AppSearchBar.tsx'
 
 const AppHeader = () => {
   const dispatch = useDispatch()
