@@ -112,8 +112,16 @@ const MatchDetail = () => {
             style={index === number ? { border: '2px solid #7986f8' } : {}}
           >
             <img
-              src={`/assets/images/champions/${participant.championName}.png`}
-              alt={participant.championName}
+              src={`/assets/images/champions/${
+                participant.championName === 'FiddleSticks'
+                  ? 'Fiddlesticks'
+                  : participant.championName
+              }.png`}
+              alt={
+                participant.championName === 'FiddleSticks'
+                  ? 'Fiddlesticks'
+                  : participant.championName
+              }
               style={{
                 width: '50px',
                 height: '50px',
