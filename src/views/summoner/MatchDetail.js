@@ -43,7 +43,9 @@ const MatchDetail = () => {
   }
 
   const chartData = {
-    labels: participants.map((participant) => participant.championName),
+    labels: participants.map((participant) =>
+      participant.championName === 'FiddleSticks' ? 'Fiddlesticks' : participant.championName,
+    ),
     datasets: [
       {
         label: 'Champion Damage Dealt To Champions',
