@@ -12,13 +12,21 @@ const MatchSummonerBuild = (props) => {
         <CRow>
           <CCol className="p-0" sm="auto">
             <Link
-              to={`/champion/?champ=${props.participant.championName}`}
+              to={`/champion/?champ=${
+                props.participant.championName === 'FiddleSticks'
+                  ? 'Fiddlesticks'
+                  : props.participant.championName
+              }`}
               state={{ itemName: props.participant.championId }}
             >
               <img
                 style={{ height: '90px', width: '90px' }}
                 className="p-0"
-                src={`/assets/images/champions/${props.participant.championName}.png`}
+                src={`/assets/images/champions/${
+                  props.participant.championName === 'FiddleSticks'
+                    ? 'Fiddlesticks'
+                    : props.participant.championName
+                }.png`}
                 alt={props.participant.championId}
               />
             </Link>
@@ -61,12 +69,20 @@ const MatchSummonerBuild = (props) => {
           <CRow>
             <CCol className="px-2">
               <Link
-                to={`/champion/?champ=${props.participant.championName}`}
+                to={`/champion/?champ=${
+                  props.participant.championName === 'FiddleSticks'
+                    ? 'Fiddlesticks'
+                    : props.participant.championName
+                }`}
                 state={{ itemName: props.participant.championId }}
               >
                 <img
                   style={{ height: '90px', width: '90px' }}
-                  src={`/assets/images/champions/${props.participant.championName}.png`}
+                  src={`/assets/images/champions/${
+                    props.participant.championName === 'FiddleSticks'
+                      ? 'Fiddlesticks'
+                      : props.participant.championName
+                  }.png`}
                   alt={props.participant.championId}
                 />
               </Link>
