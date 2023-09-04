@@ -143,15 +143,31 @@ const MatchDetail = () => {
             <ChartComponent
               data1={selectedParticipant.kills}
               data2={enemyParticipant.kills}
-              label1={selectedParticipant.championName}
-              label2={enemyParticipant.championName}
+              label1={
+                selectedParticipant.championName === 'FiddleSticks'
+                  ? 'Fiddlesticks'
+                  : selectedParticipant.championName
+              }
+              label2={
+                enemyParticipant.championName === 'FiddleSticks'
+                  ? 'Fiddlesticks'
+                  : enemyParticipant.championName
+              }
               title="Total Kills"
             />
             <ChartComponent
               data1={selectedParticipant.goldEarned}
               data2={enemyParticipant.goldEarned}
-              label1={selectedParticipant.championName}
-              label2={enemyParticipant.championName}
+              label1={
+                selectedParticipant.championName === 'FiddleSticks'
+                  ? 'Fiddlesticks'
+                  : selectedParticipant.championName
+              }
+              label2={
+                enemyParticipant.championName === 'FiddleSticks'
+                  ? 'Fiddlesticks'
+                  : enemyParticipant.championName
+              }
               title="Gold obtained"
             />
             <ChartComponent
@@ -159,8 +175,16 @@ const MatchDetail = () => {
                 selectedParticipant.totalMinionsKilled + selectedParticipant.neutralMinionsKilled
               }
               data2={enemyParticipant.totalMinionsKilled + enemyParticipant.neutralMinionsKilled}
-              label1={selectedParticipant.championName}
-              label2={enemyParticipant.championName}
+              label1={
+                selectedParticipant.championName === 'FiddleSticks'
+                  ? 'Fiddlesticks'
+                  : selectedParticipant.championName
+              }
+              label2={
+                enemyParticipant.championName === 'FiddleSticks'
+                  ? 'Fiddlesticks'
+                  : enemyParticipant.championName
+              }
               title="total CS"
             />
           </CRow>
@@ -169,22 +193,46 @@ const MatchDetail = () => {
             <ChartComponent
               data1={selectedParticipant.visionScore}
               data2={enemyParticipant.visionScore}
-              label1={selectedParticipant.championName}
-              label2={enemyParticipant.championName}
+              label1={
+                selectedParticipant.championName === 'FiddleSticks'
+                  ? 'Fiddlesticks'
+                  : selectedParticipant.championName
+              }
+              label2={
+                enemyParticipant.championName === 'FiddleSticks'
+                  ? 'Fiddlesticks'
+                  : enemyParticipant.championName
+              }
               title="Vision Score"
             />
             <ChartComponent
               data1={selectedParticipant.totalDamageTaken}
               data2={enemyParticipant.totalDamageTaken}
-              label1={selectedParticipant.championName}
-              label2={enemyParticipant.championName}
+              label1={
+                selectedParticipant.championName === 'FiddleSticks'
+                  ? 'Fiddlesticks'
+                  : selectedParticipant.championName
+              }
+              label2={
+                enemyParticipant.championName === 'FiddleSticks'
+                  ? 'Fiddlesticks'
+                  : enemyParticipant.championName
+              }
               title="Damage taken"
             />
             <ChartComponent
               data1={selectedParticipant.damageDealtToTurrets}
               data2={enemyParticipant.damageDealtToTurrets}
-              label1={selectedParticipant.championName}
-              label2={enemyParticipant.championName}
+              label1={
+                selectedParticipant.championName === 'FiddleSticks'
+                  ? 'Fiddlesticks'
+                  : selectedParticipant.championName
+              }
+              label2={
+                enemyParticipant.championName === 'FiddleSticks'
+                  ? 'Fiddlesticks'
+                  : enemyParticipant.championName
+              }
               title="Damage dealt to turrets"
             />
           </CRow>
