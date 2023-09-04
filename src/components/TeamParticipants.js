@@ -7,7 +7,9 @@ const TeamParticipants = ({ participants, imageSize, participant }) => {
 
   const fetchSummoner = (selectedParticipant) => {
     // Get the summoner name of the clicked participant
-    const summonerName = selectedParticipant.summonerName
+    const summonerName = selectedparticipant.summonerName === 'FiddleSticks'
+                  ? 'Fiddlesticks'
+                  : participant.summonerName
 
     // Make the API call here using the search query
     fetch(`https://metamindslol-backend-b6e08f21de0e.herokuapp.com/summoners/EUW1/${summonerName}`)
@@ -54,7 +56,9 @@ const TeamParticipants = ({ participants, imageSize, participant }) => {
               style={{ cursor: 'pointer', whiteSpace: 'pre', width: '150px' }}
               onClick={() => fetchSummoner(participant)}
             >
-              {participant.summonerName}
+              {participant.summonerName === 'FiddleSticks'
+                  ? 'Fiddlesticks'
+                  : participant.summonerName}
             </span>
           </div>
         ))}
@@ -62,12 +66,16 @@ const TeamParticipants = ({ participants, imageSize, participant }) => {
     )
   } else if (participant) {
     return (
-      <div key={participant.summonerName} className="d-flex align-items-center px-1">
+      <div key={participant.summonerName === 'FiddleSticks'
+                  ? 'Fiddlesticks'
+                  : participant.summonerName} className="d-flex align-items-center px-1">
         <span
           style={{ cursor: 'pointer', whiteSpace: 'pre' }}
           onClick={() => fetchSummoner(participant)}
         >
-          {fillStringWithSpaces(participant.summonerName, 16)}
+          {fillStringWithSpaces(participant.summonerName === 'FiddleSticks'
+                  ? 'Fiddlesticks'
+                  : participant.summonerName, 16)}
         </span>
       </div>
     )
