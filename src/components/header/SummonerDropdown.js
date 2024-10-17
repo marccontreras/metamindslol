@@ -20,7 +20,7 @@ const SummonerDropdown = ({ summoners }) => {
                   style={{ height: '50px' }}
                   className="ms-2"
                   src={
-                    'https://ddragon.leagueoflegends.com/cdn/13.17.1/img/profileicon/' +
+                    'https://ddragon.leagueoflegends.com/cdn/14.20.1/img/profileicon/' +
                     summoner.profileIconId +
                     '.png'
                   }

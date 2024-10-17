@@ -6,23 +6,8 @@ import TeamParticipants from '../../components/TeamParticipants'
 import MatchSummonerBuild from '../../components/MatchSummonerBuild'
 import ParticipantItems from '../../components/ParticipantItems'
 
-const Match = ({ match, summonerName, summonerWon }) => {
-  const {
-    //gameCreation,
-    gameDuration,
-    gameId,
-    //gameMode,
-    //gameName,
-    //gameStartTimestamp,
-    gameEndTimestamp,
-    //gameType,
-    //gameVersion,
-    //map,
-    participants,
-    //platform,
-    queue,
-    teams,
-  } = match
+const Match = ({ match, riotIdName, riotIdTagline, summonerWon }) => {
+  const { gameDuration, gameId, gameEndTimestamp, participants, queue, teams } = match
 
   const color = summonerWon ? 'success' : 'danger'
 
@@ -50,11 +35,19 @@ const Match = ({ match, summonerName, summonerWon }) => {
     const seconds = durationInSeconds % 60
     return `${minutes}m ${seconds}s`
   }
+
   return (
     <CListGroupItem color={color} className="p-1">
-      {participants.map(
-        (participant, index) =>
-          participant.summonerName === summonerName && (
+      {console.log(participants)}
+      {participants.map((participant, index) => {
+        // Agregar console.log para depurar los valores
+        //console.log('participant.riotIdName:', participant.riotIdName)
+        //console.log('riotIdName:', riotIdName)
+        //console.log('participant.riotIdTagline:', participant.riotIdTagline)
+        //console.log('riotIdTagline:', riotIdTagline)
+        console.log(participant)
+        if (participant.riotIdName === riotIdName && participant.riotIdTagline === riotIdTagline) {
+          return (
             <CContainer key={index}>
               <CRow>
                 <CCol sm="auto">
@@ -116,30 +109,25 @@ const Match = ({ match, summonerName, summonerWon }) => {
                 {/* Display other participant attributes */}
               </CRow>
             </CContainer>
-          ),
-      )}
+          )
+        }
+        return null
+      })}
     </CListGroupItem>
   )
 }
 
 Match.propTypes = {
   match: PropTypes.shape({
-    //gameCreation: PropTypes.number.isRequired,
     gameDuration: PropTypes.number.isRequired,
     gameId: PropTypes.number.isRequired,
-    //gameMode: PropTypes.string.isRequired,
-    //gameName: PropTypes.string.isRequired,
-    //gameStartTimestamp: PropTypes.number.isRequired,
     gameEndTimestamp: PropTypes.number.isRequired,
-    //gameType: PropTypes.string.isRequired,
-    //gameVersion: PropTypes.string.isRequired,
-    //map: PropTypes.string.isRequired,
     participants: PropTypes.arrayOf(PropTypes.object).isRequired,
-    //platform: PropTypes.string.isRequired,
     queue: PropTypes.string.isRequired,
     teams: PropTypes.arrayOf(PropTypes.object).isRequired,
   }).isRequired,
-  summonerName: PropTypes.string.isRequired,
+  riotIdName: PropTypes.string.isRequired,
+  riotIdTagline: PropTypes.string.isRequired,
   summonerWon: PropTypes.bool.isRequired,
 }
 

@@ -19,12 +19,8 @@ const Summoner = () => {
   const { summoner } = location.state
   const { name, platform } = summoner
 
-  console.log('summoner ' + summoner)
-  console.log(summoner)
   const handleFetchMatchList = () => {
-    fetch(
-      `https://metamindslol-backend-b6e08f21de0e.herokuapp.com/match/${platform}/matches/summoner/${name}`,
-    )
+    fetch(`http://localhost:8080/match/${platform}/matches/summoner/${name}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error('Failed to fetch data')
@@ -40,8 +36,8 @@ const Summoner = () => {
   }
 
   useEffect(() => {
-    //fetch(`https://metamindslol-backend-b6e08f21de0e.herokuapp.com/match/EUW/recentMatch/summoner/${temporalSummoner}`)
-    fetch(`https://metamindslol-backend-b6e08f21de0e.herokuapp.com/match/EUW/summoner/${name}`)
+    //fetch(`http://localhost:8080/match/EUW/recentMatch/summoner/${temporalSummoner}`)
+    fetch(`http://localhost:8080/match/EUW/summoner/${name}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error('Failed to fetch data')
@@ -63,8 +59,14 @@ const Summoner = () => {
     (accumulator, match) => {
       const firstTeam = match.teams[0]
       const teamWinner = firstTeam.win === true ? firstTeam.teamId : match.teams[1].teamId
+
+      /*      match.participants.map((participant) => {
+              console.log('participant', participant.riotIdName, participant.riotIdTagline)
+              console.log(participant)
+            })*/
+
       const summonerTeam = match.participants.find(
-        (participant) => participant.summonerName === name,
+        (participant) => participant.riotIdName + '#' + participant.riotIdTagline === name,
       )?.team
 
       if (teamWinner === summonerTeam) {
@@ -122,7 +124,7 @@ const Summoner = () => {
                       style={{ height: '100px', width: '100px' }}
                       className="ms-2 p-0"
                       src={
-                        'https://ddragon.leagueoflegends.com/cdn/13.17.1/img/profileicon/' +
+                        'https://ddragon.leagueoflegends.com/cdn/14.20.1/img/profileicon/' +
                         summoner.profileIconId +
                         '.png'
                       }
@@ -182,14 +184,26 @@ const Summoner = () => {
               sortedMatchList.map((match) => {
                 const firstTeam = match.teams[0]
                 const teamWinner = firstTeam.win === true ? firstTeam.teamId : match.teams[1].teamId
+                const fullName = name.split('#')
+                //console.log(fullName)
+                const riotidName = fullName[0]
+                const riotIdTagline = fullName[1]
                 // Calculate the value of summonerWon based on the comparison
                 const summonerWon =
-                  match.participants.find((participant) => participant.summonerName === name)
-                    ?.team === teamWinner
+                  match.participants.find(
+                    (participant) =>
+                      participant.riotIdName + '#' + participant.riotIdTagline === name,
+                  )?.team === teamWinner
+                console.log(match)
                 return (
                   // Add the return statement here
                   <CListGroup key={match.id}>
-                    <Match match={match} summonerName={name} summonerWon={summonerWon} />
+                    <Match
+                      match={match}
+                      riotIdName={riotidName}
+                      riotIdTagline={riotIdTagline}
+                      summonerWon={summonerWon}
+                    />
                   </CListGroup>
                 )
               })

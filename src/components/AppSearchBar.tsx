@@ -41,7 +41,7 @@ const SearchBar = () => {
     setSearchQuery(value)
 
     // Make the API call here using the search query
-    fetch(`https://metamindslol-backend-b6e08f21de0e.herokuapp.com/summoners/search/${value}`)
+    fetch(`http://localhost:8080/summoners/search/${value}`)
       .then((response) => response.json())
       .then((data) => {
         if (Array.isArray(data)) {
@@ -61,7 +61,7 @@ const SearchBar = () => {
     }
     if (event.key === 'Enter' && searchQuery.length > 0) {
       console.log('HORA DENVIAR ' + searchQuery)
-      fetch(`https://metamindslol-backend-b6e08f21de0e.herokuapp.com/summoners/EUW/${searchQuery}`)
+      fetch(`http://localhost:8080/summoners/EUW/${searchQuery}`)
         .then((response) => response.json())
         .then((data) => {
           navigate(`/summoner/?summonerName=${searchQuery}`, {

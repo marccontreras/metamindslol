@@ -108,7 +108,10 @@ const MatchSummonerBuild = (props) => {
             <CCol style={{ width: '115px', padding: 0 }}>
               <ParticipantKda
                 participant={props.participant}
-                summonerNameFromMatchDetail={props.participant.summonerName}
+                summonerNameFromMatchDetail={
+                  props.participant.riotIdName + '#' + props.participant.riotIdTagline
+                }
+                /***{props.participant.riotIdName + '#' + props.participant.riotIdTagline}***/
               />
             </CCol>
           </CRow>
