@@ -8,14 +8,15 @@ const TeamParticipants = ({ participants, imageSize, participant }) => {
   const fetchSummoner = (selectedParticipant) => {
     // Get the summoner name of the clicked participant
     const summonerName = selectedParticipant.riotIdName + '#' + selectedParticipant.riotIdTagline
+    const encodedSummoner = encodeURIComponent(summonerName)
 
     // Make the API call here using the search query
-    fetch(`http://localhost:8080/summoners/EUW1/${summonerName}`)
+    fetch(`http://localhost:8080/summoners/EUW1/${encodedSummoner}`)
       .then((response) => response.json())
       .then((data) => {
         if (data !== 'Summoner not found') {
           // If summoner data is fetched successfully, navigate to the summoner page
-          navigate(`/summoner/?summonerName=${summonerName}`, { state: { summoner: data } })
+          navigate(`/summoner/?summonerName=${encodedSummoner}`, { state: { summoner: data } })
         } else {
           // Handle case when summoner is not found
           console.error('Summoner not found')

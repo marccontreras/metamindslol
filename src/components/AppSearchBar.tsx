@@ -38,10 +38,11 @@ const SearchBar = () => {
   const handleInputChange = (event) => {
     console.log(event)
     const { value } = event.target
+    const encodedSummoner = encodeURIComponent(value)
     setSearchQuery(value)
 
     // Make the API call here using the search query
-    fetch(`http://localhost:8080/summoners/search/${value}`)
+    fetch(`http://localhost:8080/summoners/search/${encodedSummoner}`)
       .then((response) => response.json())
       .then((data) => {
         if (Array.isArray(data)) {
@@ -60,11 +61,12 @@ const SearchBar = () => {
       // setVisible((prevVisible) => !prevVisible);
     }
     if (event.key === 'Enter' && searchQuery.length > 0) {
-      console.log('HORA DENVIAR ' + searchQuery)
-      fetch(`http://localhost:8080/summoners/EUW/${searchQuery}`)
+      const encodedQuery = encodeURIComponent(searchQuery)
+      console.log('HORA DENVIAR ' + encodedQuery)
+      fetch(`http://localhost:8080/summoners/EUW/${encodedQuery}`)
         .then((response) => response.json())
         .then((data) => {
-          navigate(`/summoner/?summonerName=${searchQuery}`, {
+          navigate(`/summoner/?summonerName=${encodedQuery}`, {
             state: { summoner: data },
           })
         })

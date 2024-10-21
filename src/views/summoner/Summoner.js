@@ -18,9 +18,9 @@ const Summoner = () => {
   // Access the 'summoner' object from the location state
   const { summoner } = location.state
   const { name, platform } = summoner
-
+  const encodedName = encodeURIComponent(name)
   const handleFetchMatchList = () => {
-    fetch(`http://localhost:8080/match/${platform}/matches/summoner/${name}`)
+    fetch(`http://localhost:8080/match/${platform}/matches/summoner/${encodedName}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error('Failed to fetch data')
@@ -37,7 +37,7 @@ const Summoner = () => {
 
   useEffect(() => {
     //fetch(`http://localhost:8080/match/EUW/recentMatch/summoner/${temporalSummoner}`)
-    fetch(`http://localhost:8080/match/EUW/summoner/${name}`)
+    fetch(`http://localhost:8080/match/EUW/summoner/${encodedName}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error('Failed to fetch data')
@@ -185,7 +185,7 @@ const Summoner = () => {
                 const firstTeam = match.teams[0]
                 const teamWinner = firstTeam.win === true ? firstTeam.teamId : match.teams[1].teamId
                 const fullName = name.split('#')
-                //console.log(fullName)
+                console.log(fullName)
                 const riotidName = fullName[0]
                 const riotIdTagline = fullName[1]
                 // Calculate the value of summonerWon based on the comparison
