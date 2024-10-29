@@ -30,7 +30,14 @@ const Champion = () => {
       <h1>Champion Details</h1>
       <CRow className="align-items-center pb-2">
         <CCol sm="auto">
-          <img src={'/assets/images/champions/' + champion.key + '.png'} alt={itemName} />
+          <img
+            src={
+              'https://ddragon.leagueoflegends.com/cdn/14.21.1/img/champion/' +
+              champion.key +
+              '.png'
+            }
+            alt={itemName}
+          />
         </CCol>
         <CCol>
           <h1>{champion.name}</h1>
@@ -45,7 +52,10 @@ const Champion = () => {
             <CCol sm="auto">
               <img
                 key={champion.passive.image.full}
-                src={'/assets/images/passive/' + champion.passive.image.full}
+                src={
+                  'https://ddragon.leagueoflegends.com/cdn/14.21.1/img/passive/' +
+                  champion.passive.image.full
+                }
                 alt={champion.passive.image.full}
               />
             </CCol>
@@ -74,7 +84,10 @@ const Champion = () => {
                 <CCol sm="auto">
                   <img
                     key={spell.image.full}
-                    src={'/assets/images/spell/' + spell.image.full}
+                    src={
+                      'https://ddragon.leagueoflegends.com/cdn/14.21.1/img/spell/' +
+                      spell.image.full
+                    }
                     alt={spell.image.full.split('.')[0]}
                   />
                 </CCol>

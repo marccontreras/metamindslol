@@ -47,7 +47,7 @@ const TeamParticipants = ({ participants, imageSize, participant }) => {
               style={{ height: imageSize, width: imageSize }}
               className="ms-2 p-1"
               key={participant.championId}
-              src={`/assets/images/champions/${
+              src={`https://ddragon.leagueoflegends.com/cdn/14.21.1/img/champion/${
                 participant.championName === 'FiddleSticks'
                   ? 'Fiddlesticks'
                   : participant.championName
@@ -75,7 +75,8 @@ const TeamParticipants = ({ participants, imageSize, participant }) => {
           style={{ cursor: 'pointer', whiteSpace: 'pre' }}
           onClick={() => fetchSummoner(participant)}
         >
-          {fillStringWithSpaces(participant.riotIdName + '#' + participant.riotIdTagline, 16)}
+          {/*riot tag is not shown to avoid overfflow*/}
+          {fillStringWithSpaces(participant.riotIdName, 16)}
         </span>
       </div>
     )

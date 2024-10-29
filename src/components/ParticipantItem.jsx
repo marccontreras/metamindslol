@@ -11,7 +11,7 @@ const ParticipantItem = ({ item, color }) => {
       <img
         style={{ height: '35px' }}
         className="m-1"
-        src={`/assets/images/items/${item}.png`}
+        src={`https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/${item}.png`}
         alt={item}
       />
     </CListGroupItem>

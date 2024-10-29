@@ -112,7 +112,7 @@ const MatchDetail = () => {
             style={index === number ? { border: '2px solid #7986f8' } : {}}
           >
             <img
-              src={`/assets/images/champions/${
+              src={`https://ddragon.leagueoflegends.com/cdn/14.21.1/img/champion/${
                 participant.championName === 'FiddleSticks'
                   ? 'Fiddlesticks'
                   : participant.championName
