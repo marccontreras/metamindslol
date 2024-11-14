@@ -32,7 +32,7 @@ const Champion = () => {
         <CCol sm="auto">
           <img
             src={
-              'https://ddragon.leagueoflegends.com/cdn/14.21.1/img/champion/' +
+              'https://ddragon.leagueoflegends.com/cdn/14.22.1/img/champion/' +
               champion.key +
               '.png'
             }
@@ -53,7 +53,7 @@ const Champion = () => {
               <img
                 key={champion.passive.image.full}
                 src={
-                  'https://ddragon.leagueoflegends.com/cdn/14.21.1/img/passive/' +
+                  'https://ddragon.leagueoflegends.com/cdn/14.22.1/img/passive/' +
                   champion.passive.image.full
                 }
                 alt={champion.passive.image.full}
@@ -85,7 +85,7 @@ const Champion = () => {
                   <img
                     key={spell.image.full}
                     src={
-                      'https://ddragon.leagueoflegends.com/cdn/14.21.1/img/spell/' +
+                      'https://ddragon.leagueoflegends.com/cdn/14.22.1/img/spell/' +
                       spell.image.full
                     }
                     alt={spell.image.full.split('.')[0]}

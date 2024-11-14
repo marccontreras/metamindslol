@@ -30,7 +30,7 @@ function renderChampionsRow(listEightChampions, iteration) {
     <>
       <CListGroup layout="horizontal" key={iteration}>
         {listEightChampions.map((champion, index) => {
-          const imagePath = `https://ddragon.leagueoflegends.com/cdn/14.21.1/img/champion/${champion.image}`
+          const imagePath = `https://ddragon.leagueoflegends.com/cdn/14.22.1/img/champion/${champion.image}`
           return (
             <CListGroupItem key={champion.name}>
               <Link

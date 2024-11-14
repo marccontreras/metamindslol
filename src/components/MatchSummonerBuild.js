@@ -22,7 +22,7 @@ const MatchSummonerBuild = (props) => {
               <img
                 style={{ height: '90px', width: '90px' }}
                 className="p-0"
-                src={`https://ddragon.leagueoflegends.com/cdn/14.21.1/img/champion/${
+                src={`https://ddragon.leagueoflegends.com/cdn/14.22.1/img/champion/${
                   props.participant.championName === 'FiddleSticks'
                     ? 'Fiddlesticks'
                     : props.participant.championName
@@ -44,7 +44,7 @@ const MatchSummonerBuild = (props) => {
                 <img
                   style={{ height: '45px', width: '45px' }}
                   className="p-0"
-                  src={`https://ddragon.leagueoflegends.com/cdn/14.21.1/img/spell/${props.participant.summonerSpell1}.png`}
+                  src={`https://ddragon.leagueoflegends.com/cdn/14.22.1/img/spell/${props.participant.summonerSpell1}.png`}
                   alt={props.participant.summonerSpell1}
                 />
               </CRow>
@@ -52,7 +52,7 @@ const MatchSummonerBuild = (props) => {
                 <img
                   style={{ height: '45px', width: '45px' }}
                   className="p-0"
-                  src={`https://ddragon.leagueoflegends.com/cdn/14.21.1/img/spell/${props.participant.summonerSpell2}.png`}
+                  src={`https://ddragon.leagueoflegends.com/cdn/14.22.1/img/spell/${props.participant.summonerSpell2}.png`}
                   alt={props.participant.summonerSpell2}
                 />
               </CRow>
@@ -78,7 +78,7 @@ const MatchSummonerBuild = (props) => {
               >
                 <img
                   style={{ height: '90px', width: '90px' }}
-                  src={`https://ddragon.leagueoflegends.com/cdn/14.21.1/img/champion/${
+                  src={`https://ddragon.leagueoflegends.com/cdn/14.22.1/img/champion/${
                     props.participant.championName === 'FiddleSticks'
                       ? 'Fiddlesticks'
                       : props.participant.championName
@@ -92,7 +92,7 @@ const MatchSummonerBuild = (props) => {
                 <img
                   style={{ height: '45px', width: '45px' }}
                   className="p-0"
-                  src={`https://ddragon.leagueoflegends.com/cdn/14.21.1/img/spell/${props.participant.summonerSpell1}.png`}
+                  src={`https://ddragon.leagueoflegends.com/cdn/14.22.1/img/spell/${props.participant.summonerSpell1}.png`}
                   alt={props.participant.summonerSpell1}
                 />
               </CRow>
@@ -100,7 +100,7 @@ const MatchSummonerBuild = (props) => {
                 <img
                   style={{ height: '45px', width: '45px' }}
                   className="p-0"
-                  src={`https://ddragon.leagueoflegends.com/cdn/14.21.1/img/spell/${props.participant.summonerSpell2}.png`}
+                  src={`https://ddragon.leagueoflegends.com/cdn/14.22.1/img/spell/${props.participant.summonerSpell2}.png`}
                   alt={props.participant.summonerSpell2}
                 />
               </CRow>

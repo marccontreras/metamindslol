@@ -47,7 +47,7 @@ const TeamParticipants = ({ participants, imageSize, participant }) => {
               style={{ height: imageSize, width: imageSize }}
               className="ms-2 p-1"
               key={participant.championId}
-              src={`https://ddragon.leagueoflegends.com/cdn/14.21.1/img/champion/${
+              src={`https://ddragon.leagueoflegends.com/cdn/14.22.1/img/champion/${
                 participant.championName === 'FiddleSticks'
                   ? 'Fiddlesticks'
                   : participant.championName
