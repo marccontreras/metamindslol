@@ -6,7 +6,7 @@ const Champions = () => {
   const [listChampions, setlistChampions] = useState([])
 
   useEffect(() => {
-    fetch('http://localhost:8080/champions')
+    fetch('https://metamindslol-backend-render.onrender.com/champions')
       .then((response) => {
         if (!response.ok) {
           throw new Error('Failed to fetch data')

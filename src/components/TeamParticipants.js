@@ -11,7 +11,7 @@ const TeamParticipants = ({ participants, imageSize, participant }) => {
     const encodedSummoner = encodeURIComponent(summonerName)
 
     // Make the API call here using the search query
-    fetch(`http://localhost:8080/summoners/EUW1/${encodedSummoner}`)
+    fetch(`https://metamindslol-backend-render.onrender.com/summoners/EUW1/${encodedSummoner}`)
       .then((response) => response.json())
       .then((data) => {
         if (data !== 'Summoner not found') {

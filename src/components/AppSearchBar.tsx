@@ -42,7 +42,7 @@ const SearchBar = () => {
     setSearchQuery(value)
 
     // Make the API call here using the search query
-    fetch(`http://localhost:8080/summoners/search/${encodedSummoner}`)
+    fetch(`https://metamindslol-backend-render.onrender.com/summoners/search/${encodedSummoner}`)
       .then((response) => response.json())
       .then((data) => {
         if (Array.isArray(data)) {
@@ -63,7 +63,7 @@ const SearchBar = () => {
     if (event.key === 'Enter' && searchQuery.length > 0) {
       const encodedQuery = encodeURIComponent(searchQuery)
       console.log('HORA DENVIAR ' + encodedQuery)
-      fetch(`http://localhost:8080/summoners/EUW/${encodedQuery}`)
+      fetch(`https://metamindslol-backend-render.onrender.com/summoners/EUW/${encodedQuery}`)
         .then((response) => response.json())
         .then((data) => {
           navigate(`/summoner/?summonerName=${encodedQuery}`, {

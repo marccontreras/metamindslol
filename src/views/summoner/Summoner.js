@@ -20,7 +20,9 @@ const Summoner = () => {
   const { name, platform } = summoner
   const encodedName = encodeURIComponent(name)
   const handleFetchMatchList = () => {
-    fetch(`http://localhost:8080/match/${platform}/matches/summoner/${encodedName}`)
+    fetch(
+      `https://metamindslol-backend-render.onrender.com/match/${platform}/matches/summoner/${encodedName}`,
+    )
       .then((response) => {
         if (!response.ok) {
           throw new Error('Failed to fetch data')
@@ -36,8 +38,8 @@ const Summoner = () => {
   }
 
   useEffect(() => {
-    //fetch(`http://localhost:8080/match/EUW/recentMatch/summoner/${temporalSummoner}`)
-    fetch(`http://localhost:8080/match/EUW/summoner/${encodedName}`)
+    //fetch(`https://metamindslol-backend-render.onrender.com/match/EUW/recentMatch/summoner/${temporalSummoner}`)
+    fetch(`https://metamindslol-backend-render.onrender.com/match/EUW/summoner/${encodedName}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error('Failed to fetch data')
