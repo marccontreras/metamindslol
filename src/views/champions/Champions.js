@@ -39,11 +39,7 @@ function renderChampionsRow(listEightChampions, iteration) {
                 key={`link${champion.name}`}
               >
                 <p className="m-0 text-center text-decoration-none text-black">{champion.name} </p>
-                <img
-                  key={champion.name}
-                  src={process.env.PUBLIC_URL + imagePath}
-                  alt={champion.image}
-                />
+                <img key={champion.name} src={imagePath} alt={champion.image} />
               </Link>
             </CListGroupItem>
           )
