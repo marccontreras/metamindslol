@@ -31,7 +31,11 @@ const AppSidebar = () => {
     >
       <CSidebarBrand className="d-none d-md-flex" to="/">
         <CContainer className="justify-content-center w-50">
-          <img src="/assets/images/brand/logo.png" height={50} alt="metamindslol" />
+          <img
+            src={`${process.env.PUBLIC_URL}/assets/images/brand/logo.png`}
+            height={50}
+            alt="metamindslol"
+          />
         </CContainer>
       </CSidebarBrand>
       <CSidebarNav>

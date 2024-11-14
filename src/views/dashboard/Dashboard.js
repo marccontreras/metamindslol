@@ -42,7 +42,10 @@ const Dashboard = () => {
       <CCard className="mb-0 mt-0">
         <CCardHeader>
           <CRow className="justify-content-center">
-            <CImage src="/assets/images/brand/logo.png" className="w-25"></CImage>
+            <CImage
+              src={`${process.env.PUBLIC_URL}/assets/images/brand/logo.png`}
+              className="w-25"
+            />
           </CRow>
         </CCardHeader>
         <CCardBody>
